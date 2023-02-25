@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 3;
     }
     
-    this.productService.getProductList().subscribe(
+    this.productService.getProductList(this.currentCategoryId).subscribe(
       data => {
         this.products = data;
       }
