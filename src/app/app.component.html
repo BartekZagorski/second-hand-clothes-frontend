@@ -11,16 +11,10 @@
       <nav class="navbar-sidebar">
         <ul class="list-unstyled navbar-list">
           <li>
-            <a href="#">Books</a>
+            <a routerLink="/category/3" routerLinkActive="active-link">Spodnie</a>
           </li>
           <li>
-            <a href="#">Coffee Mugs</a>
-          </li>
-          <li>
-            <a href="#">Mouse Pads</a>
-          </li>
-          <li>
-            <a href="#">Luggage Tags</a>
+            <a routerLink="/category/4" routerLinkActive="active-link">Sukienki</a>
           </li>
         </ul>
       </nav>
@@ -55,7 +49,10 @@
     <!-- END HEADER DESKTOP-->
 
     <!-- MAIN CONTENT-->
-    <app-product-list></app-product-list>
+
+    <router-outlet></router-outlet>  <!-- this is kind of placeholder that renders the content of this page -->
+
+    <!-- <app-product-list></app-product-list> -->
 
   </div>
 </div>
