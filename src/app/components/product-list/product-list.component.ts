@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   currentCategoryId: number = 3;
 
   constructor(private productService: ProductService,
+              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -32,6 +33,8 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
     } else {
       this.currentCategoryId = 3;
+      this.router.navigateByUrl('/category/' + this.currentCategoryId);
+
     }
     
     this.productService.getProductList(this.currentCategoryId).subscribe(
