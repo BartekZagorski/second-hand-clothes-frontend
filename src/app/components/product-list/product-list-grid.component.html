@@ -14,7 +14,12 @@
                     </div>
                 </div>
 
+                <!--  if products not found display a message-->
                 
+                <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                    <!--  ? is in this case a safe navigation operator that prevents us from null pointer exception if the products would be null or undefined-->
+                        Nie znaleziono produktów.
+                    </div>                
 
             </div>
 
