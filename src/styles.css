@@ -725,7 +725,11 @@ table.table.table-bordered th{
     color:#0da8e4
 }
 .detail-section{
-    margin-top:60px
+    margin-top:100px
+}
+
+.detail-img{
+    width: 30%;
 }
 /**/
 
@@ -840,6 +844,10 @@ footer ul li{
 
 
 @media (max-width:991px){
+    .detail-section{
+        margin-top:60px
+    }
+
      .section-content-p30{
         padding:0
     }
