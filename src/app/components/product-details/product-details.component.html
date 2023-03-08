@@ -1,18 +1,21 @@
 <div class="detail-section">
     <div class="container-fluid">
+
+        <div *ngIf=" product !== undefined ">
         
-        <img src="{{ product.imageUrl}}" class="detail-img" alt="">
+            <img src="{{ product.imageUrl}}" class="detail-img" alt="">
 
-        <h3>{{product.name}}</h3>
-        <div class="price">{{product.unitPrice | currency: 'USD' }}</div>
-        <button class="btn btn-primary btn-small"><i class="fa fa-shopping-cart pe-2"
-            aria-hidden="true"></i>Dodaj do koszyka</button>
+            <h3>{{product.name}}</h3>
+            <div class="price">{{product.unitPrice | currency: 'USD' }}</div>
+            <button class="btn btn-primary btn-small"><i class="fa fa-shopping-cart pe-2"
+                aria-hidden="true"></i>Dodaj do koszyka</button>
 
-        <hr>
-        <h4>Opis</h4>
-        <p>{{product.description}}</p>
+            <hr>
+            <h4>Opis</h4>
+            <p>{{product.description}}</p>
 
-        <a routerLink="/products" class="mt-5">Powrót do listy produktów</a>
+            <a routerLink="/products" class="mt-5">Powrót do listy produktów</a>
 
+        </div>
     </div>
 </div>
