@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../common/product';
 import { ProductCategory } from '../common/product-category';
+import { SuperCategory } from '../common/super-category';
 
 @Injectable({
   providedIn: 'root'
@@ -27,14 +28,22 @@ export class ProductService {
 
     return this.httpClient.get<ProductGetResponse>(searchUrl).pipe(
       map(response => response._embedded.products)
-    )
+    );
   }
   getProductCategories(): Observable<ProductCategory[]> {
     const searchUrl = this.baseUrl + 'product-categories';
 
     return this.httpClient.get<ProductCategoryGetResponse>(searchUrl).pipe(
       map(response => response._embedded.productCategories)
-    )
+    );
+  }
+
+  getSuperCategories(): Observable<SuperCategory[]> {
+    const searchUrl = this.baseUrl + 'super-categories';
+
+    return this.httpClient.get<SuperCategoryGetResponse>(searchUrl).pipe(
+      map(response => response._embedded.superCategories)
+    );
   }
 
   searchProducts(theKeyword: string): Observable<Product[]> {
@@ -42,7 +51,7 @@ export class ProductService {
 
     return this.httpClient.get<ProductGetResponse>(searchUrl).pipe(
       map(response => response._embedded.products)
-    )
+    );
   }
 }
 
@@ -56,5 +65,11 @@ interface ProductGetResponse {
 interface ProductCategoryGetResponse {
   _embedded: {
     productCategories: ProductCategory[];
+  }
+}
+
+interface SuperCategoryGetResponse {
+  _embedded: {
+    superCategories: SuperCategory[];
   }
 }
