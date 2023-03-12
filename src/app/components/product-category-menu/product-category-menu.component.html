@@ -1,43 +1,27 @@
 <div class="menu-sidebar-content js-scrollbar1">
     <nav class="navbar-sidebar">
         <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
+            
+            <div *ngFor="let superCategory of superCategories" class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Kobieta
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + superCategory.id"  aria-expanded="true" aria-controls="collapseOne">
+                  {{superCategory.name}}
                 </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div id="collapse{{superCategory.id}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <ul class="list-unstyled navbar-list">
-                        <li *ngFor="let category of productCategories">
-                            <a routerLink="/category/{{category.id}}" routerLinkActive="active-link">{{category.name | lowercase }}</a>
-                        </li>
+                        <ng-container *ngFor="let category of productCategories">
+                            <li *ngIf="category.superCategoryId == superCategory.id">
+                                <a routerLink="/category/{{category.id}}" routerLinkActive="active-link">{{category.name | lowercase }}</a>
+                            </li>
+                        </ng-container>
                     </ul>
                 </div>
               </div>
             </div>
             
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Dziecko
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  
-                </div>
-              </div>
-            </div>
           </div>
 
-
-
-        <!-- <ul class="list-unstyled navbar-list">
-            <li *ngFor="let category of productCategories">
-                <a routerLink="/category/{{category.id}}" routerLinkActive="active-link">{{category.name | lowercase }}</a>
-            </li>
-        </ul> -->
     </nav>
 </div>
