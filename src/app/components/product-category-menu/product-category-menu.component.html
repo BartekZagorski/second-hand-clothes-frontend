@@ -4,11 +4,15 @@
             
             <div *ngFor="let superCategory of superCategories" class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + superCategory.id"  aria-expanded="true" aria-controls="collapseOne">
-                  {{superCategory.name}}
+                <button (click)="handleButtons()" id="accordion-button{{superCategory.id}}" class="accordion-button" [ngClass]="{'collapsed' : superCategory.id != superCategories[0].id}" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapse' + superCategory.id"  [attr.aria-expanded]="superCategory.id == superCategories[0].id"
+                        aria-controls="collapseOne" [attr.disabled] = "superCategory.id == superCategories[0].id ? 'disabled' : null">
+
+                          {{superCategory.name}}
+
                 </button>
               </h2>
-              <div id="collapse{{superCategory.id}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div id="collapse{{superCategory.id}}" class="accordion-collapse collapse" [ngClass]="{'show' : superCategory.id == 1}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <ul class="list-unstyled navbar-list">
                         <ng-container *ngFor="let category of productCategories">

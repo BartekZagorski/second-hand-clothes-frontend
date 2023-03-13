@@ -363,7 +363,7 @@ input.au-input.au-input-xl{
 }
 
 .navbar-sidebar{
-    padding:35px;
+    padding:5px;
     padding-bottom:0
 }
 
@@ -371,7 +371,7 @@ input.au-input.au-input-xl{
     display:block;
     color:#555;
     font-size:16px;
-    padding:5px 0
+    padding: 10px;
 }
 
 .navbar-sidebar .navbar-list li a i{
@@ -790,6 +790,28 @@ footer ul li{
 
 /* 
  * ----------------------------
+ * Accordion modifications
+ * ----------------------------
+ */
+
+ .accordion-button{
+    padding: 10px !important;
+ }
+
+ .accordion-body{
+    padding: 0px;
+ }
+
+ .accordion-item{
+    border: none;
+ }
+
+ .accordion-item:first-of-type .accordion-button{
+    border-radius: 0% !important;
+ }
+
+/* 
+ * ----------------------------
  * Media Queries
  * ----------------------------
  */
@@ -845,7 +867,7 @@ footer ul li{
 
 @media (max-width:991px){
     .detail-section{
-        margin-top:60px
+        margin-top:6f0px
     }
 
      .section-content-p30{

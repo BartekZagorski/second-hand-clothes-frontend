@@ -37,4 +37,26 @@ export class ProductCategoryMenuComponent implements OnInit {
     );
   }
 
+  handleButtons() {
+    for ( let i = 0; i < SuperCategory.length; i++) {
+      let id = 'accordion-button'+(i+1);
+
+      let button = document.getElementById(id);
+
+      console.log(button);
+
+      this.toggleDisabledAttr(button);
+    }
+  }
+
+  toggleDisabledAttr(attr: any) {
+    console.log(attr.hasAttribute('disabled'));
+
+     if (attr.disabled) {
+      attr.removeAttribute('disabled');
+     } else {
+      attr.setAttribute('disabled', '');
+     }
+  }
+
 }
