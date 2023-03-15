@@ -11,7 +11,8 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
-  currentCategoryId: number = 3;
+  currentCategoryId: number = 4;
+  currentSuperCategoryId: number = 1;
   searchMode: boolean = false;
 
   constructor(private productService: ProductService,
@@ -48,13 +49,27 @@ export class ProductListComponent implements OnInit {
 
   handleListProducts() {
 
+    //check if "superId" parameter is available
+    const hasSuperCategoryId: boolean = this.route.snapshot.paramMap.has('superId');
+
+    if(hasSuperCategoryId) {
+      console.log('there was a click in super category');
+      this.provideListProductsBySuperCategory();
+    } else {
+      this.provideListProductsByCategory();
+    }
+
+
+  }
+
+  provideListProductsByCategory() {
     //check if "id" parameter is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
     } else {
-      this.currentCategoryId = 3;
+      this.currentCategoryId = 4;
       this.router.navigateByUrl('/category/' + this.currentCategoryId);
 
     }
@@ -64,7 +79,28 @@ export class ProductListComponent implements OnInit {
         this.products = data;
       }
     )
-
   }
+
+  provideListProductsBySuperCategory() {
+        console.log(this.route.snapshot.paramMap);
+
+        //check if "id" parameter is available
+        const hasSuperCategoryId: boolean = this.route.snapshot.paramMap.has('superId');
+
+        if (hasSuperCategoryId) {
+          this.currentSuperCategoryId = +this.route.snapshot.paramMap.get('superId')!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
+        } else {
+          this.currentSuperCategoryId = 1;
+          this.router.navigateByUrl('/super-category/' + this.currentSuperCategoryId);
+    
+        }
+        
+        this.productService.getProductList(this.currentSuperCategoryId, true).subscribe(
+          data => {
+            this.products = data;
+          }
+        )
+  }
+  
 
 }

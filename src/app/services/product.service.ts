@@ -22,9 +22,11 @@ export class ProductService {
     return this.httpClient.get<Product>(productUrl);
   }
 
-  getProductList(categoryId: number): Observable<Product[]> {
+  getProductList(categoryId: number, isSuperCategory: boolean = false): Observable<Product[]> {
 
-  const searchUrl = this.baseUrl + 'products/search/findByCategoryId?id=' + categoryId;
+  let searchUrl = this.baseUrl + 'products/search/findByCategoryId?id=' + categoryId;
+
+  if (isSuperCategory) searchUrl = this.baseUrl + 'products/search/findByCategorySuperCategoryId?id=' + categoryId;
 
     return this.httpClient.get<ProductGetResponse>(searchUrl).pipe(
       map(response => response._embedded.products)

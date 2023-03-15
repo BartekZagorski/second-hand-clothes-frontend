@@ -13,6 +13,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 const routes: Routes = [
 
   { path: 'search/:keyword', component: ProductListComponent },
+  { path: 'super-category/:superId', component: ProductListComponent },
   { path: 'category/:id', component: ProductListComponent },
   { path: 'category', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailsComponent },

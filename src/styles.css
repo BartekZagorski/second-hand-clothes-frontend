@@ -810,6 +810,10 @@ footer ul li{
     border-radius: 0% !important;
  }
 
+ .accordion-header a{
+    display: block;
+ }
+
 /* 
  * ----------------------------
  * Media Queries

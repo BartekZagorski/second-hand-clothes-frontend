@@ -43,19 +43,17 @@ export class ProductCategoryMenuComponent implements OnInit {
 
       let button = document.getElementById(id);
 
-      console.log(button);
-
-      this.toggleDisabledAttr(button);
+      this.togglePointerEventsStyle(button);
     }
   }
 
-  toggleDisabledAttr(attr: any) {
-    console.log(attr.hasAttribute('disabled'));
+  togglePointerEventsStyle(field: any) {
+    const eventPointerState = getComputedStyle(field).getPropertyValue('pointer-events');
 
-     if (attr.disabled) {
-      attr.removeAttribute('disabled');
+     if (eventPointerState === 'auto') {
+      field.style.setProperty('pointer-events', 'none');
      } else {
-      attr.setAttribute('disabled', '');
+      field.style.setProperty('pointer-events', 'auto');
      }
   }
 
