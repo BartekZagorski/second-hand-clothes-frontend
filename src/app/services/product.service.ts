@@ -32,6 +32,17 @@ export class ProductService {
       map(response => response._embedded.products)
     );
   }
+
+  getProductListPaginate(thePage: number, thePageSize: number, theCategoryId: number, isSuperCategory: boolean = false): Observable<ProductGetResponse> {
+
+    //need to build URL based on category id,page and size
+    let searchURL = `${this.baseUrl}products/search/findByCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
+
+    if (isSuperCategory) searchURL = `${this.baseUrl}products/search/findByCategorySuperCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
+
+    return this.httpClient.get<ProductGetResponse>(searchURL);
+  }
+
   getProductCategories(): Observable<ProductCategory[]> {
     const searchUrl = this.baseUrl + 'product-categories';
 
