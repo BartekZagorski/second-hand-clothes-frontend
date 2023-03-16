@@ -74,11 +74,7 @@ export class ProductListComponent implements OnInit {
 
     }
     
-    this.productService.getProductList(this.currentCategoryId).subscribe(
-      data => {
-        this.products = data;
-      }
-    )
+    this.getProductList();
   }
 
   provideListProductsBySuperCategory() {
@@ -95,11 +91,15 @@ export class ProductListComponent implements OnInit {
     
         }
         
-        this.productService.getProductList(this.currentSuperCategoryId, true).subscribe(
-          data => {
-            this.products = data;
-          }
-        )
+        this.getProductList(this.currentSuperCategoryId, true);
+  }
+
+  getProductList(categoryId: number = this.currentCategoryId, isSuperCategory: boolean = false) {
+    this.productService.getProductList(categoryId, isSuperCategory).subscribe(
+      data => {
+        this.products = data;
+      }
+    )
   }
   
 
