@@ -12,8 +12,14 @@ export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
   currentCategoryId: number = 4;
+  previousCategoryId: number = 4;
   currentSuperCategoryId: number = 1;
   searchMode: boolean = false;
+
+  //new properties for pagination
+  thePageNumber: number = 1;
+  thePageSize: number = 5;
+  theTotalElements: number = 0;
 
   constructor(private productService: ProductService,
               private router: Router,
@@ -73,6 +79,20 @@ export class ProductListComponent implements OnInit {
       this.router.navigateByUrl('/category/' + this.currentCategoryId);
 
     }
+
+    //
+    //
+    //  check if we have different category than previous one
+    //  Note: Angular will reuse a component if it was displayed previously
+    // 
+    // 
+    // if we have different category Id than previous then we simply declare theCurrentPage to 1
+    if (this.previousCategoryId != this.currentCategoryId) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currentCategoryId;
+    console.log(`Current category Id = ${this.currentCategoryId}, page number = ${this.thePageNumber}`);
     
     this.getProductList();
   }
@@ -95,11 +115,14 @@ export class ProductListComponent implements OnInit {
   }
 
   getProductList(categoryId: number = this.currentCategoryId, isSuperCategory: boolean = false) {
-    this.productService.getProductList(categoryId, isSuperCategory).subscribe(
+    this.productService.getProductListPaginate(this.thePageNumber - 1, this.thePageSize, categoryId, isSuperCategory).subscribe(
       data => {
-        this.products = data;
+        this.products = data._embedded.products;
+        this.thePageNumber = data.page.number + 1;
+        this.thePageSize = data.page.size;
+        this.theTotalElements = data.page.totalElements;
       }
-    )
+    );
   }
   
 
