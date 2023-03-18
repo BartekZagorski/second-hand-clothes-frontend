@@ -13,12 +13,16 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId: number = 4;
   previousCategoryId: number = 4;
-  currentSuperCategoryId: number = 1;
   searchMode: boolean = false;
+
+  isSuperCategory: boolean = false;
+  previousIsSuperCategory: boolean = false;
+  redirectUrl: string = "/category/" + this.currentCategoryId;
+  currentParameterName: string = "";
 
   //new properties for pagination
   thePageNumber: number = 1;
-  thePageSize: number = 5;
+  thePageSize: number = 2;
   theTotalElements: number = 0;
 
   constructor(private productService: ProductService,
@@ -58,63 +62,29 @@ export class ProductListComponent implements OnInit {
     //check if "superId" parameter is available
     const hasSuperCategoryId: boolean = this.route.snapshot.paramMap.has('superId');
 
-    if(hasSuperCategoryId) {
-      console.log('there was a click in super category');
-      this.provideListProductsBySuperCategory();
+    if (hasSuperCategoryId) {
+      this.isSuperCategory = true;
+      this.currentParameterName = "superId";
+      this.currentCategoryId = +this.route.snapshot.paramMap.get(this.currentParameterName)!;
+      this.redirectUrl = "/super-category/" + this.currentCategoryId;
     } else {
-      this.provideListProductsByCategory();
+      const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
+      
+      if (hasCategoryId) {
+        this.isSuperCategory = false;
+        this.currentParameterName = "id";
+        this.currentCategoryId = +this.route.snapshot.paramMap.get(this.currentParameterName)!;
+        this.redirectUrl = "/category/" + this.currentCategoryId;
+      } else {
+        this.currentParameterName = "";
+      }
     }
 
+    this.provideListProductsByCategoryCommon();
 
   }
 
-  provideListProductsByCategory() {
-    //check if "id" parameter is available
-    const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
-
-    if (hasCategoryId) {
-      this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
-    } else {
-      this.currentCategoryId = 4;
-      this.router.navigateByUrl('/category/' + this.currentCategoryId);
-
-    }
-
-    //
-    //
-    //  check if we have different category than previous one
-    //  Note: Angular will reuse a component if it was displayed previously
-    // 
-    // 
-    // if we have different category Id than previous then we simply declare theCurrentPage to 1
-    if (this.previousCategoryId != this.currentCategoryId) {
-      this.thePageNumber = 1;
-    }
-
-    this.previousCategoryId = this.currentCategoryId;
-    console.log(`Current category Id = ${this.currentCategoryId}, page number = ${this.thePageNumber}`);
-    
-    this.getProductList();
-  }
-
-  provideListProductsBySuperCategory() {
-        console.log(this.route.snapshot.paramMap);
-
-        //check if "id" parameter is available
-        const hasSuperCategoryId: boolean = this.route.snapshot.paramMap.has('superId');
-
-        if (hasSuperCategoryId) {
-          this.currentSuperCategoryId = +this.route.snapshot.paramMap.get('superId')!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
-        } else {
-          this.currentSuperCategoryId = 1;
-          this.router.navigateByUrl('/super-category/' + this.currentSuperCategoryId);
-    
-        }
-        
-        this.getProductList(this.currentSuperCategoryId, true);
-  }
-
-  getProductList(categoryId: number = this.currentCategoryId, isSuperCategory: boolean = false) {
+   getProductList(categoryId: number = this.currentCategoryId, isSuperCategory: boolean = false) {
     this.productService.getProductListPaginate(this.thePageNumber - 1, this.thePageSize, categoryId, isSuperCategory).subscribe(
       data => {
         this.products = data._embedded.products;
@@ -124,6 +94,32 @@ export class ProductListComponent implements OnInit {
       }
     );
   }
-  
 
+  provideListProductsByCategoryCommon() {
+
+    const hasCategoryId: boolean = this.route.snapshot.paramMap.has(this.currentParameterName);
+    console.log("the hasCategoryId = " + hasCategoryId);
+
+    if (this.currentParameterName != "" ) {
+      this.currentCategoryId = +this.route.snapshot.paramMap.get(this.currentParameterName)!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
+    } else {
+      this.currentCategoryId = 1
+      this.router.navigateByUrl(this.redirectUrl);
+    }
+    //
+    //
+    //  check if we have different category than previous one
+    //  Note: Angular will reuse a component if it was displayed previously
+    // 
+    // 
+    // if we have different category Id than previous then we simply declare theCurrentPage to 1
+    if (this.previousCategoryId != this.currentCategoryId || this.previousIsSuperCategory != this.isSuperCategory) {
+      this.thePageNumber = 1;
+      this.previousCategoryId = this.currentCategoryId;
+      this.previousIsSuperCategory = this.isSuperCategory;
+    }
+    
+    this.getProductList(this.currentCategoryId, this.isSuperCategory);
+
+  }
 }
