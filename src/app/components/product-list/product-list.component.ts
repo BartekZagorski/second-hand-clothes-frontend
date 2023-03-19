@@ -25,6 +25,8 @@ export class ProductListComponent implements OnInit {
   thePageSize: number = 3;
   theTotalElements: number = 0;
 
+  previousKeyword: string = "";
+
   constructor(private productService: ProductService,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -48,12 +50,21 @@ export class ProductListComponent implements OnInit {
 
   }
   handleSearchProducts() {
-    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!; //exclaimation mark is necessary here
+    const theKeyword: string = this.route.snapshot.paramMap.get("keyword")!;
 
-    this.productService.searchProducts(theKeyword).subscribe(
-      data => {
-        this.products = data;
-      }
+    //if we had different current keyword than previous we simply assign pageNumber to 1
+
+    if (theKeyword != this.previousKeyword) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousKeyword = theKeyword;
+    console.log(`Current keyword = ${theKeyword}, page number = ${this.thePageNumber}`);
+
+    //now search for the products using keyword
+
+    this.productService.searchProductsPaginate(this.thePageNumber-1, this.thePageSize, theKeyword).subscribe(
+      this.processResult()
     );
   }
 
@@ -80,22 +91,17 @@ export class ProductListComponent implements OnInit {
       }
     }
 
-    this.provideListProductsByCategoryCommon();
+    this.provideListProductsByCategory();
 
   }
 
    getProductList(categoryId: number = this.currentCategoryId, isSuperCategory: boolean = false) {
     this.productService.getProductListPaginate(this.thePageNumber - 1, this.thePageSize, categoryId, isSuperCategory).subscribe(
-      data => {
-        this.products = data._embedded.products;
-        this.thePageNumber = data.page.number + 1;
-        this.thePageSize = data.page.size;
-        this.theTotalElements = data.page.totalElements;
-      }
+      this.processResult()
     );
   }
 
-  provideListProductsByCategoryCommon() {
+  provideListProductsByCategory() {
 
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has(this.currentParameterName);
     console.log("the hasCategoryId = " + hasCategoryId);
@@ -128,4 +134,13 @@ export class ProductListComponent implements OnInit {
     this.thePageNumber = 1;
     this.listProducts();
   }
+
+  private processResult () {
+    return (data: any) => {
+    this.products = data._embedded.products;
+    this.thePageNumber = data.page.number + 1;
+    this.thePageSize = data.page.size;
+    this.theTotalElements = data.page.totalElements;
+  };
+}
 }
