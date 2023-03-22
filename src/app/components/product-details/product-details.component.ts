@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductDetailsComponent implements OnInit {
 
   public product!: Product;
+  public images: string[] = [];
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { }
@@ -29,6 +30,12 @@ export class ProductDetailsComponent implements OnInit {
         this.product = data;
       }
     )
+    this.productService.getProductImageUrlList(currentId).subscribe(
+      data => {
+        this.images = data;
+      }
+    )
+    
   }
 
 }

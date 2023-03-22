@@ -33,6 +33,15 @@ export class ProductService {
     );
   }
 
+  getProductImageUrlList(productId: number): Observable<string[]> {
+
+    const searchUrl = this.baseUrl + 'products/' + productId + '/images';
+
+    return this.httpClient.get<ImageGetResponse>(searchUrl).pipe(
+      map(response => response._embedded.images.map(image => image.url))
+    );
+  }
+
   getProductListPaginate(thePage: number, thePageSize: number, theCategoryId: number, isSuperCategory: boolean = false): Observable<ProductGetResponse> {
 
     //need to build URL based on category id,page and size
@@ -97,5 +106,15 @@ interface ProductCategoryGetResponse {
 interface SuperCategoryGetResponse {
   _embedded: {
     superCategories: SuperCategory[];
+  }
+}
+
+interface ImageGetResponse {
+  _embedded: {
+    images: [
+      {
+        url: string;
+      }
+    ]
   }
 }
