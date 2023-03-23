@@ -728,8 +728,18 @@ table.table.table-bordered th{
     margin-top:100px
 }
 
+.slider-wrapper{
+    height: 600px;
+}
+
 .detail-img{
-    width: 30%;
+    max-height: 500px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon,
+.carousel-indicators {
+   filter: invert(1);
 }
 /**/
 
@@ -1076,5 +1086,10 @@ footer ul li{
         background:#fff;
         border:0;
         padding:8px 0
+    }
+
+    .slider-wrapper{
+        height: 500px;
+        margin-bottom: 3rem;
     }
 }
