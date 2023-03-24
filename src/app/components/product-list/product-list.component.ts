@@ -135,12 +135,20 @@ export class ProductListComponent implements OnInit {
     this.listProducts();
   }
 
+  addToTheCart(product: Product) {
+    console.log("Product name: " + product.name + ", product price: " + product.unitPrice);
+
+    //TODO add the feature that adds the product to the cart indeed
+  }
+
   private processResult () {
     return (data: any) => {
     this.products = data._embedded.products;
     this.thePageNumber = data.page.number + 1;
     this.thePageSize = data.page.size;
     this.theTotalElements = data.page.totalElements;
-  };
-}
+    };
+  }
+
+
 }

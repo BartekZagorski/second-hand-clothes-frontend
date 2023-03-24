@@ -13,8 +13,8 @@
                             </div>
                         </a>
                         <div class="price">{{ tempProduct.unitPrice | currency:'PLN' }}</div>
-                        <a class="btn btn-primary btn-small"><i class="fa fa-shopping-cart pe-2"
-                            aria-hidden="true"></i>Dodaj do koszyka</a>
+                        <button (click)="addToTheCart(tempProduct)" class="btn btn-primary btn-small" ><i class="fa fa-shopping-cart pe-2"
+                            aria-hidden="true"></i>Dodaj do koszyka</button>
                     </div>
                 </div>
 
