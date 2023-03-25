@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -28,6 +30,7 @@ export class ProductListComponent implements OnInit {
   previousKeyword: string = "";
 
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -138,7 +141,9 @@ export class ProductListComponent implements OnInit {
   addToTheCart(product: Product) {
     console.log("Product name: " + product.name + ", product price: " + product.unitPrice);
 
-    //TODO add the feature that adds the product to the cart indeed
+    const cartItem = new CartItem(product);
+
+    this.cartService.addToCart(cartItem);
   }
 
   private processResult () {
