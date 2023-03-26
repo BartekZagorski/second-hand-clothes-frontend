@@ -16,6 +16,23 @@ totalQuantity: number = 0;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.listCartDetails();
   }
 
+  listCartDetails() {
+    //get a handle to the cart items
+    this.cartItems = this.cartService.cartItems;
+ 
+    //subscribe data to the total price
+     this.cartService.totalPrice.subscribe(
+       data => {
+         this.totalPrice = data;
+     });
+ 
+    //subscribe data to the total quantity
+    this.cartService.totalQuantity.subscribe(
+     data => {
+       this.totalQuantity = data;
+    });
+  }
 }

@@ -18,7 +18,7 @@
                         </td>
                         <td>
                             <p> {{ tempCartItem.name }} </p>
-                            <p> {{ tempCartItem.unitPrice | currency: 'USD'}} </p>
+                            <p> {{ tempCartItem.unitPrice | currency: 'PLN '}} </p>
                         </td>
                         <td>
                             <div class="items">
@@ -44,10 +44,10 @@
                             </div>
                             
                             <div class="mt-2">
-                                <button class="btn btn-primary btn-sm">Remove</button>
+                                <button class="btn btn-primary btn-sm">Usuń produkt</button>
                             </div>
                             <p class="mt-2">Wartość: {{tempCartItem.unitPrice * tempCartItem.quantity | currency:
-                                'USD'}}</p>
+                                'PLN '}}</p>
                         </td>
 
                     </tr>
@@ -55,8 +55,8 @@
                         <td colspan="2"></td>
                         <td class="active-link">
                             <p> Całkowita ilość: {{ totalQuantity }} </p>
-                            <p> Wysyłka: FREE</p>
-                            <p> Cena całkowita: {{ totalPrice | currency: 'PLN' }} </p>
+                            <p> Wysyłka: {{ 10.00 | currency: 'PLN ' }}</p>
+                            <p> Cena całkowita: {{ totalPrice | currency: 'PLN ' }} </p>
                             <div>
                                 <a routerLink="/checkout" class="btn btn-primary">Przejdź do płatności</a>
                             </div>
