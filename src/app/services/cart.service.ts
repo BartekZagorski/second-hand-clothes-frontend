@@ -65,6 +65,7 @@ export class CartService {
 
     this.logCartData(totalPriceValue, totalQuantityValue);
   }
+
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log("Contents of the cart");
     for (let item of this.cartItems) {
@@ -77,6 +78,15 @@ export class CartService {
     }
   }
 
+  decrementQuantity(cartItem: CartItem) {
+    cartItem.quantity--;
+
+    if(cartItem.quantity === 0) {
+      this.remove(cartItem);
+    } else {
+      this.computeCartTotals();
+    }
+  }
   
   remove(cartItem: CartItem) {
     //find index of cartItem in the cartItems array
