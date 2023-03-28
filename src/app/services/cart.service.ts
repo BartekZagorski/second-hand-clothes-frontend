@@ -11,6 +11,8 @@ export class CartService {
 
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
+  shippingCost: Subject<number> = new BehaviorSubject<number>(0);
+  totalPriceWithShipping: Subject<number> = new BehaviorSubject<number>(0);
 
   constructor() { }
 
@@ -42,15 +44,22 @@ export class CartService {
 
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
+    let shippingCost: number = 0;
+    let totalPriceWithShipping: number = 0;
     
     for (let item of this.cartItems) {
       totalPriceValue += item.quantity * item.unitPrice;
       totalQuantityValue += item.quantity;
     }
 
+    totalPriceValue < 100 ? shippingCost = 10.00 : shippingCost = 0.00;
+    totalPriceWithShipping = totalPriceValue + shippingCost;
+
     //publishing events of getting new values, every subscriber will receive the new data
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
+    this.shippingCost.next(shippingCost);
+    this.totalPriceWithShipping.next(totalPriceWithShipping);
 
     //log the cart data for debugging purposes
 

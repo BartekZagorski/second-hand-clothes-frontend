@@ -12,6 +12,8 @@ export class CartDetailsComponent implements OnInit {
 cartItems: CartItem[] = [];
 totalPrice: number = 0.00;
 totalQuantity: number = 0;
+shippingCost: number = 0.00;
+totalPriceWithShipping: number = 0.00;
 
   constructor(private cartService: CartService) { }
 
@@ -34,5 +36,23 @@ totalQuantity: number = 0;
      data => {
        this.totalQuantity = data;
     });
+
+    //subscribe data to the shipping cost
+    this.cartService.shippingCost.subscribe(
+      data => {
+        this.shippingCost = data;
+      }
+    )
+
+    //subscribe data to the total price with shipping
+    this.cartService.totalPriceWithShipping.subscribe(
+      data => {
+        this.totalPriceWithShipping = data;
+      }
+    )
+  }
+
+  incrementQuantity(cartItem: CartItem) {
+    this.cartService.addToCart(cartItem);
   }
 }

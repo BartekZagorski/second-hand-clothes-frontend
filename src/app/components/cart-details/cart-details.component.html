@@ -26,7 +26,7 @@
 
                                 <div class="row no-gutters">
                                     <div class="col">
-                                        <button class="btn btn-primary btn-sm">
+                                        <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
@@ -55,8 +55,8 @@
                         <td colspan="2"></td>
                         <td class="active-link">
                             <p> Całkowita ilość: {{ totalQuantity }} </p>
-                            <p> Wysyłka: {{ 10.00 | currency: 'PLN ' }}</p>
-                            <p> Cena całkowita: {{ totalPrice | currency: 'PLN ' }} </p>
+                            <p> Wysyłka: {{ shippingCost | currency: 'PLN ' }}</p>
+                            <p> Cena całkowita: {{ totalPriceWithShipping | currency: 'PLN ' }} </p>
                             <div>
                                 <a routerLink="/checkout" class="btn btn-primary">Przejdź do płatności</a>
                             </div>
