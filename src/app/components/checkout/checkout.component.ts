@@ -10,6 +10,11 @@ export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup!: FormGroup;
 
+  totalQuantity: number = 0;
+  totalPrice: number = 0.00;
+  shippingCost: number = 0.00;
+  totalPriceWithShipping: number = 0.00;
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {

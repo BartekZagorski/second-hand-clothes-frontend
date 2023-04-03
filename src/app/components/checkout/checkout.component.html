@@ -150,6 +150,88 @@
                     </div>
                 </div>
 
+                <!-- Credit Card -->
+
+                <div formGroupName="creditCard" class="form-area">
+                    <h3>Karta kredytowa</h3>
+                    <div class="row">
+                        <div class="col-md-2"><label>Card Type</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>MasterCard</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Nazwisko na karcie</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="nameOnCard" type="text">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Numer karty</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="cardNumber" type="text">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Kod bezpieczeńśtwa</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="securityCode" type="text">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Miesiąc ważności</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationMonth">
+                                    <option >
+                                 
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Rok ważności</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationYear" >
+                                    <option >
+                                       
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order details -->
+
+                <div class="form-area">
+                    <h3>Podsumowanie</h3>
+
+                    <p> Ilość całkowita: {{ totalQuantity}} </p>
+                    <p> Wartość całkowita: {{ totalPrice | currency: 'PLN '}} </p>
+                    <p> Wysyłka: {{ shippingCost  | currency: 'PLN ' }} </p>
+                    <p> Do zapłaty: {{ totalPriceWithShipping  | currency: 'PLN ' }}</p>
+                    
+
+                </div>
+
                 <!-- submit button -->
 
                 <div class="text-center">
