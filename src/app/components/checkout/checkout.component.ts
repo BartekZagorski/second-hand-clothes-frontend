@@ -28,15 +28,13 @@ export class CheckoutComponent implements OnInit {
       shippingAddress: this.formBuilder.group({
         street: [''],
         city: [''],
-        state: [''],
-        country: [''],
+        province: [''],
         zipCode: ['']
       }),
       billingAddress: this.formBuilder.group({
         street: [''],
         city: [''],
-        state: [''],
-        country: [''],
+        province: [''],
         zipCode: ['']
       }),
       creditCard: this.formBuilder.group({
