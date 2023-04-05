@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Place } from 'src/app/common/place';
+import { Province } from 'src/app/common/province';
+import { SecondHandFormService } from 'src/app/services/second-hand-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -15,7 +18,13 @@ export class CheckoutComponent implements OnInit {
   shippingCost: number = 0.00;
   totalPriceWithShipping: number = 0.00;
 
-  constructor(private formBuilder: FormBuilder) { }
+  provinces: Province[] = [];
+  shippingPlaces: Place[] = [];
+  billingPlaces: Place[] = [];
+
+  constructor(private formBuilder: FormBuilder,
+              private secondHandFormService: SecondHandFormService
+    ) { }
 
   ngOnInit(): void {
 
@@ -46,6 +55,19 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     })
+
+
+    //populate provinces
+    this.populateProvinces();
+  }
+
+
+  populateProvinces() {
+    this.secondHandFormService.getProvinces().subscribe(
+      data => {
+        this.provinces = data;
+      }
+    )
   }
 
   onSubmit() {
