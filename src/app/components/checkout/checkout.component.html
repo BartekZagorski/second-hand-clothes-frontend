@@ -41,8 +41,10 @@
                         <div class="col-md-2"><label>Województwo</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="province">
-
+                                <select formControlName="province" (change)="getPlaces('shippingAddress')">
+                                    <option *ngFor="let province of provinces" [ngValue]="province">
+                                        {{ province.name }}
+                                    </option>
                                 </select>
 
                             </div>
@@ -53,7 +55,9 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="city">
-
+                                    <option *ngFor="let place of shippingPlaces" [ngValue]="place">
+                                        {{place.name}}
+                                    </option>
                                 </select>
 
                             </div>

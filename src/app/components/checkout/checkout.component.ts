@@ -70,6 +70,27 @@ export class CheckoutComponent implements OnInit {
     )
   }
 
+  getPlaces(formGroupName: string) {
+
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+
+    const provinceId = formGroup?.value.province.id;
+
+    this.secondHandFormService.getPlaces(provinceId).subscribe(
+      data => {
+        if(formGroupName === "shippingAddress") {
+          this.shippingPlaces = data;
+        } else {
+          this.billingPlaces = data;
+        }
+        //select first item by default
+        formGroup?.get('city')?.setValue(data[0]);
+      }
+
+    );
+
+  }
+
   onSubmit() {
     console.log("Handling the form submition");
     console.log(this.checkoutFormGroup.get('customer')!.value);
