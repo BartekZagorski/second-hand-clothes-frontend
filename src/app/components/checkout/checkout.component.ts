@@ -99,11 +99,11 @@ export class CheckoutComponent implements OnInit {
   copyShippingAddressToBillingAddress(event: any) {
 
     if (event.target.checked) {
+      this.billingPlaces = this.shippingPlaces; // fixing the bug with no copying states
       this.checkoutFormGroup.controls['billingAddress'].setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
-      //this.billingAddressStates = this.shippingAddressStates; // fixing the bug with no copying states
     } else {
+      this.billingPlaces = []; // fixing the bug with no copying states
       this.checkoutFormGroup.controls['billingAddress'].reset();
-      //this.billingAddressStates = []; // fixing the bug with no copying states
     }
   }
 
