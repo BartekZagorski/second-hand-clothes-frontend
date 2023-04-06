@@ -21,7 +21,7 @@ export class SecondHandFormService {
   }
 
   getPlaces(provinceId: number): Observable<Place[]> {
-    const searchUrl = this.placesUrl + "/search/findByProvinceId?id=" + provinceId;
+    const searchUrl = this.placesUrl + "/search/findByProvinceIdOrderByNameAsc?id=" + provinceId;
 
     return this.httpClient.get<GetPlacesResponse>(searchUrl).pipe(
       map(response => response._embedded.places)
