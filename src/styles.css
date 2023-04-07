@@ -612,7 +612,7 @@ input.au-input.au-input-xl{
     border:1px solid #ccc
 }
 .au-checkbox{
-    display:block;
+    /*display:block;*/
     position:relative;
     cursor:pointer;
     font-size:22px;

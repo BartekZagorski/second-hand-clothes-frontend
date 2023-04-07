@@ -107,4 +107,12 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  uncheckTheCheckbox() {
+    const checkbox = document.getElementById("copyAddressCheckbox") as HTMLInputElement | null;
+
+    if (checkbox != null && checkbox.checked) {
+      checkbox.checked = false;
+    }
+  }
+
 }
