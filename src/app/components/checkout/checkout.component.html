@@ -35,7 +35,7 @@
 
                 <!-- shipping address -->
 
-                <div formGroupName="shippingAddress" class="form-area">
+                <div formGroupName="shippingAddress" class="form-area" (change)="handleAddressControls()">
                     <h3>Adres wysyłki</h3>
                     <div class="row">
                         <div class="col-md-2"><label>Województwo</label></div>

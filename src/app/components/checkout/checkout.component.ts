@@ -80,11 +80,14 @@ export class CheckoutComponent implements OnInit {
       data => {
         if(formGroupName === "shippingAddress") {
           this.shippingPlaces = data;
+          //select first item by default
+          formGroup?.get('city')?.setValue(data[0]);
+          this.handleAddressControls();
         } else {
           this.billingPlaces = data;
+          //select first item by default
+          formGroup?.get('city')?.setValue(data[0]);
         }
-        //select first item by default
-        formGroup?.get('city')?.setValue(data[0]);
       }
 
     );
@@ -99,8 +102,7 @@ export class CheckoutComponent implements OnInit {
   copyShippingAddressToBillingAddress(event: any) {
 
     if (event.target.checked) {
-      this.billingPlaces = this.shippingPlaces; // fixing the bug with no copying states
-      this.checkoutFormGroup.controls['billingAddress'].setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+      this.copyAddressControl();
     } else {
       this.billingPlaces = []; // fixing the bug with no copying states
       this.checkoutFormGroup.controls['billingAddress'].reset();
@@ -113,6 +115,23 @@ export class CheckoutComponent implements OnInit {
     if (checkbox != null && checkbox.checked) {
       checkbox.checked = false;
     }
+  }
+
+  handleAddressControls() {
+    if (this.isCopyingAddressCheckboxChecked()) {
+      this.copyAddressControl();
+    }
+  }
+
+  isCopyingAddressCheckboxChecked(): boolean {
+    const checkbox = document.getElementById("copyAddressCheckbox") as HTMLInputElement | null;
+    
+    return checkbox != null ? checkbox?.checked : false;
+  }
+
+  copyAddressControl() {
+    this.billingPlaces = this.shippingPlaces; // fixing the bug with no copying states
+    this.checkoutFormGroup.controls['billingAddress'].setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
   }
 
 }
