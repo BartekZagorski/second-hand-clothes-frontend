@@ -77,6 +77,13 @@ export class CheckoutComponent implements OnInit {
     get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
     get email() { return this.checkoutFormGroup.get('customer.email'); }
 
+      // shipping address group getters neccesary to validation
+    get shippingCountry() { return this.checkoutFormGroup.get('shippingAddress.country'); }
+    get shippingStreet() { return this.checkoutFormGroup.get('shippingAddress.street'); }
+    get shippingCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
+    get shippingState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
+    get shippingZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
+
   populateProvinces() {
     this.secondHandFormService.getProvinces().subscribe(
       data => {
