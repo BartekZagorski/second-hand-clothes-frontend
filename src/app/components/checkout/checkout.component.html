@@ -12,6 +12,17 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="firstName" type="text">
+                                <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="firstName?.errors?.['required']">
+                                        Podaj imię.
+                                    </div>
+
+                                    <div *ngIf="firstName?.errors?.['minlength']">
+                                        Minimalna długość imienia to 2 znaki.
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -20,6 +31,16 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="lastName" type="text">
+                                <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="lastName?.errors?.['required']">
+                                        Podaj nazwisko.
+                                    </div>
+
+                                    <div *ngIf="lastName?.errors?.['minlength']">
+                                        Minimalna długość nazwiska to 2 znaki.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -28,6 +49,16 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="email" type="text">
+                                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="email?.errors?.['required']">
+                                        Podaj adres email.
+                                    </div>
+
+                                    <div *ngIf="email?.errors?.['pattern']">
+                                        Wpisano niepoprawny adres email.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -43,7 +74,7 @@
                             <div class="input-space">
                                 <select formControlName="province" (change)="getPlaces('shippingAddress')">
                                     <option *ngFor="let province of provinces" [ngValue]="province">
-                                        {{ province.name }}
+                                        {{ province.name | titlecase}}
                                     </option>
                                 </select>
 
