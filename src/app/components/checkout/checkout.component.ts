@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Place } from 'src/app/common/place';
 import { Province } from 'src/app/common/province';
 import { SecondHandFormService } from 'src/app/services/second-hand-form.service';
+import { SecondHandValidators } from 'src/app/validators/second-hand-validators';
 
 @Component({
   selector: 'app-checkout',
@@ -32,10 +33,14 @@ export class CheckoutComponent implements OnInit {
       customer: this.formBuilder.group({
         firstName: new FormControl('',
                                   [Validators.required,
-                                  Validators.minLength(2)]),
+                                  Validators.minLength(2),
+                                  SecondHandValidators.notOnlyWhiteSpace,
+                                  SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
         lastName: new FormControl('',
                                   [Validators.required,
-                                  Validators.minLength(2)]),
+                                  Validators.minLength(2),
+                                  SecondHandValidators.notOnlyWhiteSpace,
+                                  SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
         email: new FormControl('',
                               [Validators.required,
                               Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])

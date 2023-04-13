@@ -2,14 +2,14 @@ import { FormControl, ValidationErrors } from "@angular/forms";
 
 export class SecondHandValidators {
 
-    static notOnlyWhiteSpace(control: FormControl) : ValidationErrors | null {
+    static notOnlyWhiteSpace(control: FormControl) : ValidationErrors {
         
         //check if the passed control value is not null and it is not contain ONLY whitespace.
 
         if (control.value != null && control.value.trim().length === 0) {
             return {'notOnlyWhiteSpace' : true};
         } else {
-            return null;
+            return null!;
         }
     }
 
