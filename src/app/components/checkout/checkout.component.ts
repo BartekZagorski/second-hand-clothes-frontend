@@ -46,10 +46,16 @@ export class CheckoutComponent implements OnInit {
                               Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
-        street: [''],
-        city: [''],
-        province: [''],
-        zipCode: ['']
+        street: new FormControl('',
+                                    [Validators.required,
+                                    Validators.minLength(2),
+                                    SecondHandValidators.notOnlyWhiteSpace,
+                                    SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
+        city: new FormControl('', [Validators.required]),
+        province: new FormControl('', [Validators.required]),
+        zipCode: new FormControl('',
+                                    [Validators.required,
+                                    Validators.pattern('[0-9]{2}-[0-9]{3}')])
       }),
       billingAddress: this.formBuilder.group({
         street: [''],
@@ -78,10 +84,9 @@ export class CheckoutComponent implements OnInit {
     get email() { return this.checkoutFormGroup.get('customer.email'); }
 
       // shipping address group getters neccesary to validation
-    get shippingCountry() { return this.checkoutFormGroup.get('shippingAddress.country'); }
     get shippingStreet() { return this.checkoutFormGroup.get('shippingAddress.street'); }
     get shippingCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
-    get shippingState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
+    get shippingProvince() { return this.checkoutFormGroup.get('shippingAddress.province'); }
     get shippingZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
 
   populateProvinces() {
