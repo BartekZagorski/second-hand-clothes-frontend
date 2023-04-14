@@ -58,10 +58,16 @@ export class CheckoutComponent implements OnInit {
                                     Validators.pattern('[0-9]{2}-[0-9]{3}')])
       }),
       billingAddress: this.formBuilder.group({
-        street: [''],
-        city: [''],
-        province: [''],
-        zipCode: ['']
+        street: new FormControl('',
+                                    [Validators.required,
+                                    Validators.minLength(2),
+                                    SecondHandValidators.notOnlyWhiteSpace,
+                                    SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
+        city: new FormControl('', [Validators.required]),
+        province: new FormControl('', [Validators.required]),
+        zipCode: new FormControl('',
+                                    [Validators.required,
+                                    Validators.pattern('[0-9]{2}-[0-9]{3}')])
       }),
       creditCard: this.formBuilder.group({
         cardType: [''],
@@ -88,6 +94,13 @@ export class CheckoutComponent implements OnInit {
     get shippingCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
     get shippingProvince() { return this.checkoutFormGroup.get('shippingAddress.province'); }
     get shippingZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
+
+      // billing address group getters neccesary to validation
+      get billingStreet() { return this.checkoutFormGroup.get('billingAddress.street'); }
+      get billingCity() { return this.checkoutFormGroup.get('billingAddress.city'); }
+      get billingProvince() { return this.checkoutFormGroup.get('billingAddress.province'); }
+      get billingZipCode() { return this.checkoutFormGroup.get('billingAddress.zipCode'); }
+  
 
   populateProvinces() {
     this.secondHandFormService.getProvinces().subscribe(

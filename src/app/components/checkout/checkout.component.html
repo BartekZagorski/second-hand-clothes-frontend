@@ -163,10 +163,16 @@
                             <div class="input-space">
                                 <select formControlName="province" (change)="getPlaces('billingAddress')">
                                     <option *ngFor="let province of provinces" [ngValue]="province">
-                                        {{ province.name }}
+                                        {{ province.name | titlecase}}
                                     </option>
                                 </select>
+                                <div *ngIf="billingProvince?.invalid && (billingProvince?.dirty || billingProvince?.touched)" class="alert alert-danger mt-1">
 
+                                    <div *ngIf="billingProvince?.errors?.['required']">
+                                        Wybierz województwo.
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -179,7 +185,13 @@
                                         {{place.name}}
                                     </option>
                                 </select>
+                                <div *ngIf="billingCity?.invalid && (billingCity?.dirty || billingCity?.touched) && billingProvince?.value != ''" class="alert alert-danger mt-1">
 
+                                    <div *ngIf="billingCity?.errors?.['required']">
+                                        Wybierz Miejscowość.
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -188,6 +200,16 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="street" type="text">
+                                <div *ngIf="billingStreet?.invalid && (billingStreet?.dirty || billingStreet?.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="billingStreet?.errors?.['required'] || billingStreet?.errors?.['notOnlyWhiteSpace']">
+                                        Podaj nazwę ulicy.
+                                    </div>
+
+                                    <div *ngIf="billingStreet?.errors?.['minlength'] || billingStreet?.errors?.['minTwoCharacters']">
+                                        Minimalna długość nazwy ulicy to 2 znaki.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -196,7 +218,16 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="zipCode" type="text">
+                                <div *ngIf="billingZipCode?.invalid && (billingZipCode?.dirty || billingZipCode?.touched)" class="alert alert-danger mt-1">
 
+                                    <div *ngIf="billingZipCode?.errors?.['required']">
+                                        Podaj kod pocztowy.
+                                    </div>
+
+                                    <div *ngIf="billingZipCode?.errors?.['pattern']">
+                                        Niepoprawny format kodu. Prawidłowy format to 00-000.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
