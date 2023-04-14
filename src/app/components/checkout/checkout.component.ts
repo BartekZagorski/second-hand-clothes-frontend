@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Place } from 'src/app/common/place';
 import { Province } from 'src/app/common/province';
+import { CartService } from 'src/app/services/cart.service';
 import { SecondHandFormService } from 'src/app/services/second-hand-form.service';
 import { SecondHandValidators } from 'src/app/validators/second-hand-validators';
 
@@ -24,7 +25,8 @@ export class CheckoutComponent implements OnInit {
   billingPlaces: Place[] = [];
 
   constructor(private formBuilder: FormBuilder,
-              private secondHandFormService: SecondHandFormService
+              private secondHandFormService: SecondHandFormService,
+              private cartService: CartService
     ) { }
 
   ngOnInit(): void {
@@ -82,6 +84,9 @@ export class CheckoutComponent implements OnInit {
 
     //populate provinces
     this.populateProvinces();
+
+    //subscribe to the totals
+    this.reviewCartDetails();
   }
 
     // customer group getters neccesary to validation
@@ -178,6 +183,34 @@ export class CheckoutComponent implements OnInit {
   copyAddressControl() {
     this.billingPlaces = this.shippingPlaces; // fixing the bug with no copying states
     this.checkoutFormGroup.controls['billingAddress'].setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+  }
+
+  reviewCartDetails() {
+
+    //subscribe data to the total price
+    this.cartService.totalPrice.subscribe(
+      data => {
+        this.totalPrice = data;
+    });
+
+    //subscribe data to the total quantity
+    this.cartService.totalQuantity.subscribe(
+      data => {
+        this.totalQuantity = data;
+    });
+
+    //subscribe data to the shipping cost
+    this.cartService.shippingCost.subscribe(
+      data => {
+        this.shippingCost = data;
+    });
+
+    //subscribe data to the total 
+    this.cartService.totalPriceWithShipping.subscribe(
+      data => {
+        this.totalPriceWithShipping = data;
+    });
+
   }
 
 }
