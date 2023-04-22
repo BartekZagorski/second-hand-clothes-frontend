@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Customer } from 'src/app/common/customer';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
 import { Place } from 'src/app/common/place';
 import { Province } from 'src/app/common/province';
+import { Purchase } from 'src/app/common/purchase';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { SecondHandFormService } from 'src/app/services/second-hand-form.service';
 import { SecondHandValidators } from 'src/app/validators/second-hand-validators';
 
@@ -26,7 +32,10 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private secondHandFormService: SecondHandFormService,
-              private cartService: CartService
+              private cartService: CartService,
+              private checkoutService: CheckoutService,
+              private router: Router
+
     ) { }
 
   ngOnInit(): void {
@@ -147,7 +156,74 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    console.log(this.checkoutFormGroup.get('customer')!.value);
+    //set up order
+    const order: Order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+
+    //get cart items
+    const cartItems = this.cartService.cartItems;
+
+    //create OrderItems[] using CartItems[]
+    const orderItems: OrderItem[] = cartItems.map(cartItem => new OrderItem(cartItem));
+
+    //set up Purchase
+    const purchase: Purchase = new Purchase();
+
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+
+    //the process of extracting only name as a String from shipping address and assign it to province and city.
+    //The reason why it is necessary is that without this process it would not be properly serialized as a JSON and it would cause an error
+    const shippingPlace: Place = JSON.parse(JSON.stringify(purchase.shippingAddress.city));
+    const shippingProvince: Province = JSON.parse(JSON.stringify(purchase.shippingAddress.province));
+    purchase.shippingAddress.province = shippingProvince.name;
+    purchase.shippingAddress.city = shippingPlace.name;
+
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingPlace: Place = JSON.parse(JSON.stringify(purchase.billingAddress.city));
+    const billingProvince: Province = JSON.parse(JSON.stringify(purchase.billingAddress.province));
+    purchase.billingAddress.province = billingProvince.name;
+    purchase.billingAddress.city = billingPlace.name;
+
+
+    purchase.order = order;
+
+    purchase.orderItems = orderItems;
+
+    this.checkoutService.placeOrder(purchase).subscribe({
+    
+      //happy path when the rest API post succeed
+      next: response => {
+        alert(`Zamówienie przyjęte.\nNumer zamówienia: ${response.orderTrackingNumber}`);
+
+        //reset cart 
+        this.resetCart();
+
+      },
+
+      //unhappy path, when something went wrong and there is an exception thrown
+      error: err => {
+        alert(`There was an error: ${err.message}`);
+      }
+
+    });
+  }
+
+  resetCart() {
+    //reset cart data
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+    this.cartService.totalPriceWithShipping.next(0);
+    this.cartService.shippingCost.next(0);
+
+    //reset form
+    this.checkoutFormGroup.reset();
+
+    //navigate to the products main page
+    this.router.navigateByUrl("/products");
   }
 
   copyShippingAddressToBillingAddress(event: any) {
