@@ -52,14 +52,6 @@ totalPriceWithShipping: number = 0.00;
     )
   }
 
-  incrementQuantity(cartItem: CartItem) {
-    this.cartService.addToCart(cartItem);
-  }
-
-  decrementQuantity(cartItem: CartItem) {
-    this.cartService.decrementQuantity(cartItem);
-  }
-
   removeItem(cartItem: CartItem) {
     this.cartService.remove(cartItem);
   }

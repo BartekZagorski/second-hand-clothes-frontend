@@ -31,9 +31,10 @@ export class CartService {
       }
 
       if (alreadyExistsInTheCart) {
-        existingCartItem.quantity++;
+        alert("Ten produkt już znajduje się w Twoim koszyku.");
       } else {
         this.cartItems.push(cartItem);
+        alert("Dodano produkt do koszyka.");
       }
 
       this.computeCartTotals();
@@ -48,8 +49,8 @@ export class CartService {
     let totalPriceWithShipping: number = 0;
     
     for (let item of this.cartItems) {
-      totalPriceValue += item.quantity * item.unitPrice;
-      totalQuantityValue += item.quantity;
+      totalPriceValue += item.unitPrice;
+      totalQuantityValue++;
     }
 
     totalPriceValue < 100 ? shippingCost = 10.00 : shippingCost = 0.00;
@@ -69,22 +70,10 @@ export class CartService {
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log("Contents of the cart");
     for (let item of this.cartItems) {
-      const subTotalPrice = item.quantity * item.unitPrice;
-
-      console.log(`name = ${item.name},  quantity = ${item.quantity},  unit price = ${item.unitPrice},  subtotal price = ${subTotalPrice}`);
+      console.log(`name = ${item.name},  unit price = ${item.unitPrice}`);
 
 
       console.log(`total price = ${totalPriceValue.toFixed(2)},  total quantity = ${totalQuantityValue}`);
-    }
-  }
-
-  decrementQuantity(cartItem: CartItem) {
-    cartItem.quantity--;
-
-    if(cartItem.quantity === 0) {
-      this.remove(cartItem);
-    } else {
-      this.computeCartTotals();
     }
   }
   
