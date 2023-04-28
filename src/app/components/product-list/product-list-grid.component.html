@@ -6,7 +6,7 @@
                 <!-- loop over the collection of products -->
                 <div *ngFor="let tempProduct of products" class="col-md-3">
                     <div class="product-box">
-                        <a routerLink="/products/{{tempProduct.id}}">
+                        <a (click)="passDataToDetailView()" routerLink="/products/{{tempProduct.id}}">
                             <div class="particular-product">                              
                                 <img src="{{ tempProduct.imageUrl }}" alt="" class="img-responsive">
                                 <h1>{{ tempProduct.name}}</h1>

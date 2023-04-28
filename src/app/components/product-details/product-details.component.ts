@@ -15,11 +15,15 @@ export class ProductDetailsComponent implements OnInit {
   public product!: Product;
   public images: string[] = [];
 
+  categoryNumber: number = 0;
+
   constructor(private productService: ProductService,
               private cartService: CartService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.updateProductDetails();
+    console.log("This is the category number: " + this.categoryNumber);
     this.route.paramMap.subscribe(() => {
       this.handleProductDetails();
     })
@@ -45,6 +49,14 @@ export class ProductDetailsComponent implements OnInit {
     const theCartItem = new CartItem(this.product);
 
     this.cartService.addToCart(theCartItem);
+  }
+
+  updateProductDetails() {
+    this.productService.categoryNumber.subscribe(
+      data => {
+        this.categoryNumber = data;
+      }
+    );
   }
 
 }

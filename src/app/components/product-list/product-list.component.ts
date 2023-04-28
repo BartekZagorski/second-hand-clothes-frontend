@@ -156,4 +156,11 @@ export class ProductListComponent implements OnInit {
   }
 
 
+
+  passDataToDetailView() {
+    this.productService.updateCategoryNumber(this.currentCategoryId);
+  }
+
+
+
 }

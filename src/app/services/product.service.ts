@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../common/product';
 import { ProductCategory } from '../common/product-category';
@@ -11,6 +11,7 @@ import { SuperCategory } from '../common/super-category';
 })
 export class ProductService {
 
+  categoryNumber: Subject<number> = new BehaviorSubject<number>(0);
 
   private baseUrl = 'http://localhost:8080/api/';
 
@@ -82,6 +83,14 @@ export class ProductService {
 
     return this.httpClient.get<ProductGetResponse>(searchURL);
   }
+
+
+
+  updateCategoryNumber(categoryNumber: number) {
+    this.categoryNumber.next(categoryNumber);
+  }
+
+
 }
 
 
