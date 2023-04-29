@@ -728,6 +728,10 @@ table.table.table-bordered th{
     margin-top:100px
 }
 
+.detail-hyperlink{
+    cursor: pointer;
+}
+
 .slider-wrapper{
     height: 600px;
 }
