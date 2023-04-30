@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -16,9 +16,12 @@ export class ProductDetailsComponent implements OnInit {
   public images: string[] = [];
 
   categoryNumber: number = 0;
+  pageNumber: number = 0;
+  isSuperCategory: boolean = false;
 
   constructor(private productService: ProductService,
               private cartService: CartService,
+              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -53,10 +56,23 @@ export class ProductDetailsComponent implements OnInit {
 
   updateProductDetails() {
     this.productService.categoryNumber.subscribe(
-      data => {
-        this.categoryNumber = data;
-      }
+      data => {this.categoryNumber = data;}
     );
+    this.productService.pageNumber.subscribe(
+      data => {this.pageNumber = data;}
+    );
+    this.productService.isSuperCategory.subscribe(
+      data => {this.isSuperCategory = data;}
+    );
+  }
+
+  getBacktoTheProductList() {
+    this.productService.updateCategoryNumber(this.categoryNumber);
+    this.productService.updatePageNumber(this.pageNumber);
+    this.productService.updateIsSuperCategory(this.isSuperCategory);
+
+    const redirectUrl = this.isSuperCategory ? "/super-category/" : "/category/"
+    this.router.navigateByUrl(redirectUrl + this.categoryNumber);
   }
 
 }

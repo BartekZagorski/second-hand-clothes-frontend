@@ -12,6 +12,8 @@ import { SuperCategory } from '../common/super-category';
 export class ProductService {
 
   categoryNumber: Subject<number> = new BehaviorSubject<number>(0);
+  pageNumber: Subject<number> = new BehaviorSubject<number>(0);
+  isSuperCategory: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   private baseUrl = 'http://localhost:8080/api/';
 
@@ -90,6 +92,13 @@ export class ProductService {
     this.categoryNumber.next(categoryNumber);
   }
 
+  updatePageNumber(thePageNumber: number) {
+    this.pageNumber.next(thePageNumber);
+  }
+
+  updateIsSuperCategory(isSuperCategory: boolean) {
+    this.isSuperCategory.next(isSuperCategory);
+  }
 
 }
 

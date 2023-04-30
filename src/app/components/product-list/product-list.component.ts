@@ -13,8 +13,8 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
-  currentCategoryId: number = 4;
-  previousCategoryId: number = 4;
+  currentCategoryId: number = 6;
+  previousCategoryId: number = 6;
   searchMode: boolean = false;
 
   isSuperCategory: boolean = false;
@@ -35,10 +35,10 @@ export class ProductListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.updateCategoryData();
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
-
   }
 
   listProducts() {
@@ -159,6 +159,23 @@ export class ProductListComponent implements OnInit {
 
   passDataToDetailView() {
     this.productService.updateCategoryNumber(this.currentCategoryId);
+    this.productService.updatePageNumber(this.thePageNumber);
+    this.productService.updateIsSuperCategory(this.isSuperCategory);
+  }
+
+  updateCategoryData() {
+    this.productService.categoryNumber.subscribe(
+      data => {this.previousCategoryId = data;}
+    );
+    this.productService.pageNumber.subscribe(
+      data => {this.thePageNumber = data;}
+    );
+    this.productService.isSuperCategory.subscribe(
+      data => {
+        this.isSuperCategory = data;
+        this.previousIsSuperCategory = data;
+      }
+    );
   }
 
 
