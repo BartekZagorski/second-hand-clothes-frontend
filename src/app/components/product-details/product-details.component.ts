@@ -17,7 +17,9 @@ export class ProductDetailsComponent implements OnInit {
 
   categoryNumber: number = 0;
   pageNumber: number = 0;
+  pageSize: number = 3;
   isSuperCategory: boolean = false;
+  searchMode: boolean = false;
 
   constructor(private productService: ProductService,
               private cartService: CartService,
@@ -61,18 +63,31 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.pageNumber.subscribe(
       data => {this.pageNumber = data;}
     );
+    this.productService.pageSize.subscribe(
+      data => {this.pageSize= data;}
+    );
     this.productService.isSuperCategory.subscribe(
       data => {this.isSuperCategory = data;}
+    );
+    this.productService.searchMode.subscribe(
+      data => {this.searchMode = data;}
     );
   }
 
   getBacktoTheProductList() {
     this.productService.updateCategoryNumber(this.categoryNumber);
     this.productService.updatePageNumber(this.pageNumber);
+    this.productService.updatePageSize(this.pageSize);
     this.productService.updateIsSuperCategory(this.isSuperCategory);
+    this.productService.updateSearchMode(this.searchMode);
 
-    const redirectUrl = this.isSuperCategory ? "/super-category/" : "/category/"
-    this.router.navigateByUrl(redirectUrl + this.categoryNumber);
+    if (this.searchMode) {
+      this.router.navigateByUrl("/search/");
+    } else {
+      const redirectUrl = this.isSuperCategory ? "/super-category/" : "/category/";
+      this.router.navigateByUrl(redirectUrl + this.categoryNumber);
+    }
+
   }
 
 }

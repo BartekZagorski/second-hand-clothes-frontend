@@ -50,11 +50,9 @@
                             <div class="col-md-3 mt-2" style="text-align: right;">
                                 <span class="me-2">Rozmiar strony</span>
                                 <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option selected="true">3</option>
-                                    <option>5</option>
-                                    <option>10</option>
+                                    <option *ngFor="let pageSize of PageSizes" [ngValue]="pageSize" [selected] = "pageSize === thePageSize">
+                                        {{pageSize}}
+                                    </option>
                                 </select>
                             </div>
 

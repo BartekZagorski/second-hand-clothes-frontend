@@ -13,11 +13,15 @@ export class ProductService {
 
   categoryNumber: Subject<number> = new BehaviorSubject<number>(0);
   pageNumber: Subject<number> = new BehaviorSubject<number>(0);
+  pageSize: Subject<number> = new BehaviorSubject<number>(0);
   isSuperCategory: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  searchMode: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   private baseUrl = 'http://localhost:8080/api/';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    this.updatePageSize(3);
+  }
 
   getProduct(productId: number): Observable<Product> {
     const productUrl = this.baseUrl + 'products/' + productId;
@@ -95,9 +99,17 @@ export class ProductService {
   updatePageNumber(thePageNumber: number) {
     this.pageNumber.next(thePageNumber);
   }
+  
+  updatePageSize(thePageSize: number) {
+    this.pageSize.next(thePageSize);
+  }
 
   updateIsSuperCategory(isSuperCategory: boolean) {
     this.isSuperCategory.next(isSuperCategory);
+  }
+
+  updateSearchMode(searchMode: boolean) {
+    this.searchMode.next(searchMode);
   }
 
 }

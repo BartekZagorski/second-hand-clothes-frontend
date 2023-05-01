@@ -23,6 +23,7 @@ export class ProductListComponent implements OnInit {
   currentParameterName: string = "";
 
   //new properties for pagination
+  PageSizes: number[] = [1, 2, 3, 5, 10];
   thePageNumber: number = 1;
   thePageSize: number = 3;
   theTotalElements: number = 0;
@@ -133,7 +134,7 @@ export class ProductListComponent implements OnInit {
   }
 
   updatePageSize(newPageSize: string) {
-    this.thePageSize = +newPageSize;
+    this.productService.updatePageSize(+newPageSize);
     this.thePageNumber = 1;
     this.listProducts();
   }
@@ -160,7 +161,9 @@ export class ProductListComponent implements OnInit {
   passDataToDetailView() {
     this.productService.updateCategoryNumber(this.currentCategoryId);
     this.productService.updatePageNumber(this.thePageNumber);
+    this.productService.updatePageSize(this.thePageSize);
     this.productService.updateIsSuperCategory(this.isSuperCategory);
+    this.productService.updateSearchMode(this.searchMode);
   }
 
   updateCategoryData() {
@@ -170,11 +173,17 @@ export class ProductListComponent implements OnInit {
     this.productService.pageNumber.subscribe(
       data => {this.thePageNumber = data;}
     );
+    this.productService.pageSize.subscribe(
+      data => {this.thePageSize = data;}
+    );
     this.productService.isSuperCategory.subscribe(
       data => {
         this.isSuperCategory = data;
         this.previousIsSuperCategory = data;
       }
+    );
+    this.productService.searchMode.subscribe(
+      data => {this.searchMode = data;}
     );
   }
 
