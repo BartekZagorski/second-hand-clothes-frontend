@@ -8,6 +8,10 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<boo
           url: environment.keycloak.issuer,
           realm: environment.keycloak.realm,
           clientId: environment.keycloak.clientId
+        },
+        initOptions: {
+            checkLoginIframe: true,
+            checkLoginIframeInterval: 25
         }
       });
   }
