@@ -22,6 +22,7 @@
     "@angular/router": "^14.2.0",
     "@ng-bootstrap/ng-bootstrap": "^13.0.0",
     "@popperjs/core": "^2.10.2",
+    "angular-oauth2-oidc": "^15.0.1",
     "bootstrap": "^5.2.0",
     "keycloak-angular": "^14.0.0",
     "keycloak-js": "^21.1.1",
