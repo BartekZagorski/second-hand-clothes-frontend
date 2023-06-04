@@ -114,7 +114,10 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = +this.route.snapshot.paramMap.get(this.currentParameterName)!; // ! is a non-null assertion operator that is needed here to compile that fragment of code
     } else {
       this.currentCategoryId = 1
-      this.router.navigateByUrl(this.redirectUrl);
+      setTimeout(() => {
+        this.router.navigateByUrl(this.redirectUrl, { replaceUrl: true });
+      }, 500);
+      
     }
     //
     //

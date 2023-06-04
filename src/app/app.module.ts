@@ -16,13 +16,17 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './utility/app.init';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
+import { AuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
 
 
   { path: 'checkout', component: CheckoutComponent},
   { path: 'cart-details', component: CartDetailsComponent},
-  { path: 'search/:keyword', component: ProductListComponent },
+  { path: 'search/:keyword', component: ProductListComponent, canActivate: [AuthGuard] },
   { path: 'super-category/:superId', component: ProductListComponent },
   { path: 'category/:id', component: ProductListComponent },
   { path: 'category', component: ProductListComponent },
@@ -42,7 +46,8 @@ const routes: Routes = [
     ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginStatusComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -50,14 +55,15 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: ['http://localhost:8080/api/'],
+          sendAccessToken: true
+      }
+  })
   ],
-  providers: [ProductService, {
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService]
-  }],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
