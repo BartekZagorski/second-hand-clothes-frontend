@@ -16,6 +16,7 @@ export class ProductService {
   pageSize: Subject<number> = new BehaviorSubject<number>(0);
   isSuperCategory: Subject<boolean> = new BehaviorSubject<boolean>(false);
   searchMode: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  searchKeyword: Subject<string> = new BehaviorSubject<string>("");
 
   private baseUrl = 'http://localhost:8080/api/';
 
@@ -110,6 +111,10 @@ export class ProductService {
 
   updateSearchMode(searchMode: boolean) {
     this.searchMode.next(searchMode);
+  }
+
+  updateSearchKeyword(searchKeyword: string) {
+    this.searchKeyword.next(searchKeyword);
   }
 
 }

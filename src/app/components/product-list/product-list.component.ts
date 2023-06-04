@@ -167,6 +167,7 @@ export class ProductListComponent implements OnInit {
     this.productService.updatePageSize(this.thePageSize);
     this.productService.updateIsSuperCategory(this.isSuperCategory);
     this.productService.updateSearchMode(this.searchMode);
+    this.productService.updateSearchKeyword(this.previousKeyword);
   }
 
   updateCategoryData() {
@@ -187,6 +188,9 @@ export class ProductListComponent implements OnInit {
     );
     this.productService.searchMode.subscribe(
       data => {this.searchMode = data;}
+    );
+    this.productService.searchKeyword.subscribe(
+      data => {this.previousKeyword = data;}
     );
   }
 
