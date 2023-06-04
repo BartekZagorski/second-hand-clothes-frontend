@@ -79,20 +79,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getBacktoTheProductList() {
-    this.productService.updateCategoryNumber(this.categoryNumber);
-    this.productService.updatePageNumber(this.pageNumber);
-    this.productService.updatePageSize(this.pageSize);
-    this.productService.updateIsSuperCategory(this.isSuperCategory);
-    this.productService.updateSearchMode(this.searchMode);
-    this.productService.updateSearchKeyword(this.searchKeyword);
-
     if (this.searchMode) {
       this.router.navigateByUrl(`/search/${this.searchKeyword}`);
     } else {
       const redirectUrl = this.isSuperCategory ? "/super-category/" : "/category/";
       this.router.navigateByUrl(redirectUrl + this.categoryNumber);
     }
-
   }
 
 }
