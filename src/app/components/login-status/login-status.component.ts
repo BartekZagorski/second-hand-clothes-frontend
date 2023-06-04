@@ -22,6 +22,7 @@ export class LoginStatusComponent implements OnInit {
 
   configureSSO() {
     this.oauthService.configure(authCodeFlowConfig);
+    this.oauthService.setupAutomaticSilentRefresh();
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(
       () => {
