@@ -18,6 +18,7 @@ import { KeycloakAngularModule } from 'keycloak-angular';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { AuthGuard } from './auth.guard';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 
 const routes: Routes = [
@@ -46,7 +47,8 @@ const routes: Routes = [
     CartStatusComponent,
     CartDetailsComponent,
     CheckoutComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
