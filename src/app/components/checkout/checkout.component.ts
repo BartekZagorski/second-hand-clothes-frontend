@@ -1,3 +1,4 @@
+import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -30,6 +31,8 @@ export class CheckoutComponent implements OnInit {
   shippingPlaces: Place[] = [];
   billingPlaces: Place[] = [];
 
+  storage: Storage = sessionStorage;
+
   constructor(private formBuilder: FormBuilder,
               private secondHandFormService: SecondHandFormService,
               private cartService: CartService,
@@ -40,19 +43,30 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let firstName = '';
+    let lastName = '';
+    let email = '';
+    const claims = JSON.parse(sessionStorage.getItem("id_token_claims_obj")!);
+
+    if(claims) {
+      firstName = claims.given_name;
+      lastName = claims.family_name;
+      email = claims.email;
+    }
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl('',
+        firstName: new FormControl(firstName,
                                   [Validators.required,
                                   Validators.minLength(2),
                                   SecondHandValidators.notOnlyWhiteSpace,
                                   SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
-        lastName: new FormControl('',
+        lastName: new FormControl(lastName,
                                   [Validators.required,
                                   Validators.minLength(2),
                                   SecondHandValidators.notOnlyWhiteSpace,
                                   SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
-        email: new FormControl('',
+        email: new FormControl(email,
                               [Validators.required,
                               Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
