@@ -19,7 +19,8 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   handleOrderHistory() {
-    const userEmail = JSON.stringify(JSON.parse(this.storage.getItem("id_token_claims_obj")!).email);
+    const userEmail = JSON.parse(this.storage.getItem("id_token_claims_obj")!).email;
+    console.log(userEmail);
 
     this.service.getOrderHistory(userEmail).subscribe(
       data => {

@@ -24,6 +24,7 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 const routes: Routes = [
 
 
+  { path: 'order-history', component: OrderHistoryComponent},
   { path: 'checkout', component: CheckoutComponent},
   { path: 'cart-details', component: CartDetailsComponent},
   { path: 'search/:keyword', component: ProductListComponent, canActivate: [AuthGuard] },

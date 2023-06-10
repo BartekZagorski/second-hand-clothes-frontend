@@ -18,6 +18,8 @@ export class OrderHistoryService {
 
     const orderHistoryUrl = this.orderUrl + "/search/findByCustomerEmail?email=" + theEmail;
 
+    console.log(orderHistoryUrl);
+
     return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
   }
 }

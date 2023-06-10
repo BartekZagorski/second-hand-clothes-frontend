@@ -4,8 +4,10 @@
         Welcome back {{ userFullName }}!
     </div>
 
-    <button *ngIf="!token" (click)="login()" class="security-btn">Login</button>
+    <button *ngIf="!token" (click)="login()" class="security-btn">Zaloguj</button>
 
-    <button *ngIf="token" (click)="logout()" class="security-btn">Logout</button>
+    <button *ngIf="token" (click)="logout()" class="security-btn">Wyloguj</button>
+
+    <button *ngIf="token" routerLink="/order-history" class="security-btn">Zamówienia</button>
     
 </div>
