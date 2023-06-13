@@ -11,7 +11,7 @@
                         <th width="10%">Date Created</th>
                     </tr>
                     <tr *ngFor="let tempOrderHistory of orderHistoryList" >
-                        <td class="p-3">{{tempOrderHistory.orderTrackingNumber}}</td>
+                        <td class="p-3"><a routerLink="/order-history/{{tempOrderHistory.id}}">{{tempOrderHistory.orderTrackingNumber}}</a></td>
                         <td>{{tempOrderHistory.totalPrice | currency:"USD"}}</td>
                         <td>{{tempOrderHistory.totalQuantity}}</td>
                         <td>{{tempOrderHistory.dateCreated | date:"medium"}}</td>

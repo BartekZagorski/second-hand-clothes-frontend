@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderHistory } from '../common/order-history';
+import { OrderItem } from '../common/order-item';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class OrderHistoryService {
 
     return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
   }
+
+  getOrderHistoryItems(id: string): Observable<GetResponseOrderHistoryItems> {
+    return this.httpClient.get<GetResponseOrderHistoryItems>(this.orderUrl + "/" + id);
+  }
 }
 
 interface GetResponseOrderHistory {
@@ -34,4 +39,8 @@ interface GetResponseOrderHistory {
     totalPages: number,
     number: number
     }
+}
+
+interface GetResponseOrderHistoryItems {
+  orderItems: OrderItem[];
 }

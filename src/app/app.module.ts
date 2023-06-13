@@ -19,11 +19,12 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { AuthGuard } from './auth.guard';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { OrderHistoryDetailsComponent } from './components/order-history-details/order-history-details.component';
 
 
 const routes: Routes = [
 
-
+  { path: 'order-history/:id', component: OrderHistoryDetailsComponent},
   { path: 'order-history', component: OrderHistoryComponent},
   { path: 'checkout', component: CheckoutComponent},
   { path: 'cart-details', component: CartDetailsComponent},
@@ -49,7 +50,8 @@ const routes: Routes = [
     CartDetailsComponent,
     CheckoutComponent,
     LoginStatusComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    OrderHistoryDetailsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
