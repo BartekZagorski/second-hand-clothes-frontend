@@ -11,6 +11,8 @@ import { OrderHistoryService } from 'src/app/services/order-history.service';
 export class OrderHistoryDetailsComponent implements OnInit {
 
   orderItems: OrderItem[] = [];
+  totalPrice: number = 0.00;
+  totalQuantity: number = 0;
 
   constructor(private service: OrderHistoryService,
               private route: ActivatedRoute) { }
@@ -28,6 +30,8 @@ export class OrderHistoryDetailsComponent implements OnInit {
     this.service.getOrderHistoryItems(orderId).subscribe(
       data => {
         this.orderItems = data.orderItems;
+        this.totalPrice = data.totalPrice;
+        this.totalQuantity = data.totalQuantity;
       }
     )
   }

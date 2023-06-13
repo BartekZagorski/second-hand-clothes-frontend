@@ -43,4 +43,6 @@ interface GetResponseOrderHistory {
 
 interface GetResponseOrderHistoryItems {
   orderItems: OrderItem[];
+  totalPrice: number;
+  totalQuantity: number;
 }
