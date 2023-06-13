@@ -43,6 +43,7 @@ interface GetResponseOrderHistory {
 
 interface GetResponseOrderHistoryItems {
   orderItems: OrderItem[];
+  orderTrackingNumber: string;
   totalPrice: number;
   totalQuantity: number;
 }
