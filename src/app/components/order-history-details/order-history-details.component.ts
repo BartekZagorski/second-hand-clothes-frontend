@@ -14,6 +14,7 @@ export class OrderHistoryDetailsComponent implements OnInit {
   orderTrackingNumber: string = "";
   totalPrice: number = 0.00;
   totalQuantity: number = 0;
+  shippingCost: number = 0.00;
 
   constructor(private service: OrderHistoryService,
               private route: ActivatedRoute) { }
@@ -34,6 +35,7 @@ export class OrderHistoryDetailsComponent implements OnInit {
         this.orderTrackingNumber = data.orderTrackingNumber;
         this.totalPrice = data.totalPrice;
         this.totalQuantity = data.totalQuantity;
+        data.shippingCost != null ? this.shippingCost = data.shippingCost : this.shippingCost = 0.00;
       }
     )
   }
