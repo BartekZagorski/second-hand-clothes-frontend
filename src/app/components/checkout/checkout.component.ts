@@ -237,6 +237,9 @@ export class CheckoutComponent implements OnInit {
     //reset form
     this.checkoutFormGroup.reset();
 
+    //reset storage property
+    this.storage.removeItem("cartItems");
+
     //navigate to the products main page
     this.router.navigateByUrl("/products");
   }
