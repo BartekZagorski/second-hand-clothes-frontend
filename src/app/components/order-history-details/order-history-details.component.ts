@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderItem } from 'src/app/common/order-item';
 import { OrderHistoryService } from 'src/app/services/order-history.service';
 
@@ -17,7 +17,8 @@ export class OrderHistoryDetailsComponent implements OnInit {
   shippingCost: number = 0.00;
 
   constructor(private service: OrderHistoryService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -28,14 +29,19 @@ export class OrderHistoryDetailsComponent implements OnInit {
   }
 
   listOrderItems() {
+    const orderEmail: string = this.route.snapshot.paramMap.get("email")!;
     const orderId: string = this.route.snapshot.paramMap.get("id")!;
-    this.service.getOrderHistoryItems(orderId).subscribe(
+    this.service.getOrderHistoryItems(orderEmail, orderId).subscribe(
       data => {
-        this.orderItems = data.orderItems;
-        this.orderTrackingNumber = data.orderTrackingNumber;
-        this.totalPrice = data.totalPrice;
-        this.totalQuantity = data.totalQuantity;
-        data.shippingCost != null ? this.shippingCost = data.shippingCost : this.shippingCost = 0.00;
+        if (data._embedded.orders[0] == null) {
+          this.router.navigateByUrl("/order-history");
+        } else {
+          this.orderItems = data._embedded.orders[0].orderItems;
+          this.orderTrackingNumber = data._embedded.orders[0].orderTrackingNumber;
+          this.totalPrice = data._embedded.orders[0].totalPrice;
+          this.totalQuantity = data._embedded.orders[0].totalQuantity;
+          data._embedded.orders[0].shippingCost != null ? this.shippingCost = data._embedded.orders[0].shippingCost : this.shippingCost = 0.00;
+        }
       }
     )
   }

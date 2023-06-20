@@ -24,11 +24,11 @@ import { OrderHistoryDetailsComponent } from './components/order-history-details
 
 const routes: Routes = [
 
-  { path: 'order-history/:id', component: OrderHistoryDetailsComponent},
-  { path: 'order-history', component: OrderHistoryComponent},
+  { path: 'order-history/:email/:id', component: OrderHistoryDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent},
   { path: 'cart-details', component: CartDetailsComponent},
-  { path: 'search/:keyword', component: ProductListComponent, canActivate: [AuthGuard] },
+  { path: 'search/:keyword', component: ProductListComponent},
   { path: 'super-category/:superId', component: ProductListComponent },
   { path: 'category/:id', component: ProductListComponent },
   { path: 'category', component: ProductListComponent },

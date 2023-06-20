@@ -9,7 +9,7 @@ import { OrderItem } from '../common/order-item';
 })
 export class OrderHistoryService {
 
-  private orderUrl = "http://localhost:8080/api/orders";
+  private ordersUrl = "http://localhost:8080/api/orders";
 
   constructor(private httpClient: HttpClient) { 
     
@@ -17,15 +17,18 @@ export class OrderHistoryService {
 
   getOrderHistory(theEmail: string): Observable<GetResponseOrderHistory> {
 
-    const orderHistoryUrl = this.orderUrl + "/search/findByCustomerEmailOrderByDateCreatedDesc?email=" + theEmail;
+    const orderHistoryUrl = this.ordersUrl + "/search/findByCustomerEmailOrderByDateCreatedDesc?email=" + theEmail;
 
     console.log(orderHistoryUrl);
 
     return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
   }
 
-  getOrderHistoryItems(id: string): Observable<GetResponseOrderHistoryItems> {
-    return this.httpClient.get<GetResponseOrderHistoryItems>(this.orderUrl + "/" + id);
+  getOrderHistoryItems(email: string, id: string): Observable<GetResponseOrderHistoryItems> {
+
+    const particularOrderUrl = this.ordersUrl + "/search/findByCustomerEmailAndId?email=" + email + "&id=" + id;
+
+    return this.httpClient.get<GetResponseOrderHistoryItems>(particularOrderUrl);
   }
 }
 
@@ -42,9 +45,15 @@ interface GetResponseOrderHistory {
 }
 
 interface GetResponseOrderHistoryItems {
-  orderItems: OrderItem[];
-  orderTrackingNumber: string;
-  totalPrice: number;
-  totalQuantity: number;
-  shippingCost: number;
+  _embedded: {
+    orders: [
+      {
+        orderItems: OrderItem[];
+        orderTrackingNumber: string;
+        totalPrice: number;
+        totalQuantity: number;
+        shippingCost: number;
+      }
+    ]
+  }
 }
