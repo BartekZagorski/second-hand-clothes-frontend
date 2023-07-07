@@ -1,13 +1,24 @@
-<div class="login-status-header">
-
-    <div *ngIf="token && userFullName" class="login-status-user-info">
-        Welcome back {{ userFullName }}!
-    </div>
-
-    <button *ngIf="!token" (click)="login()" class="security-btn">Zaloguj</button>
-
-    <button *ngIf="token" (click)="logout()" class="security-btn">Wyloguj</button>
-
-    <button *ngIf="token" routerLink="/order-history" class="security-btn">Zamówienia</button>
+<div class="container">
+    <div class="row d-flex justify-content-end">
+        
+        <div *ngIf="token && userFullName" class=" col-12 col-lg-auto d-flex my-auto justify-content-start align-content-center">
+                Witaj {{ userFullName }}!
+        </div>
+        <div *ngIf="!token" class="col-12 col-lg-auto d-flex justify-content-start pe-0">
+            <button  (click)="login()" class="btn btn-success rounded-pill my-1 mx-1 m-lg-0"
+            data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar">Zaloguj</button>
     
+        </div>
+        <div *ngIf="token" class="col-12 col-lg-auto d-flex justify-content-start pe-0">
+            <button  (click)="logout()" class="btn btn-success rounded-pill my-1 mx-1 m-lg-0"
+            data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar">Wyloguj</button>
+    
+        </div>
+        <div *ngIf="token" class="col-12 col-lg-auto d-flex justify-content-start pe-0">
+            <button  routerLink="/order-history" class="btn btn-success rounded-pill my-1 mx-1 m-lg-0"
+            data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar">Zamówienia</button>
+    
+        </div>
+
+    </div>
 </div>

@@ -1,10 +1,10 @@
-<div class="menu-sidebar-content js-scrollbar1">
-    <nav class="navbar-sidebar">
-        <div class="accordion" id="accordionCategoryMenu">
+<div class="d-flex w-100 js-scrollbar1">
+    <nav class="h-100 w-100">
+        <div class="accordion h-100" id="accordionCategoryMenu">
             
-            <div *ngFor="let superCategory of superCategories" class="accordion-item">
+            <div *ngFor="let superCategory of superCategories" class="accordion-item rounded-0">
               <h2 class="accordion-header" id="headingOne">
-                <a routerLink="/super-category/{{superCategory.id}}" routerLinkActive="active-link">
+                <a class="text-decoration-none" routerLink="/super-category/{{superCategory.id}}" routerLinkActive="active-link">
                   <button (click)="handleButtons()" id="accordion-button{{superCategory.id}}" class="accordion-button" [ngClass]="{'collapsed' : superCategory.id != superCategories[0].id}" type="button" data-bs-toggle="collapse"
                           [attr.data-bs-target]="'#collapse' + superCategory.id"  [attr.aria-expanded]="superCategory.id == superCategories[0].id"
                           aria-controls="collapseOne" [attr.style] = "superCategory.id == superCategories[0].id ? 'pointer-events: none;' : 'pointer-events: auto'">
@@ -16,12 +16,14 @@
                 </a>
               </h2>
               <div id="collapse{{superCategory.id}}" class="accordion-collapse collapse" [ngClass]="{'show' : superCategory.id == 1}" aria-labelledby="headingOne" data-bs-parent="#accordionCategoryMenu">
-                <div class="accordion-body">
-                    <ul class="list-unstyled navbar-list">
+                <div class="accordion-body p-0">
+                    <ul class="list-unstyled navbar-list m-0">
                         <ng-container *ngFor="let category of productCategories">
-                            <li *ngIf="category.superCategoryID == superCategory.id">
-                                <a routerLink="/category/{{category.id}}" routerLinkActive="active-link">{{category.name | lowercase }}</a>
-                            </li>
+                          <li class=" border-bottom" *ngIf="category.superCategoryID == superCategory.id">
+                            <a class="text-decoration-none p-3 link-dark d-block" routerLink="/category/{{category.id}}" routerLinkActive="active-link" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasCategories">
+                              {{category.name | lowercase }}
+                            </a>
+                          </li>
                         </ng-container>
                     </ul>
                 </div>

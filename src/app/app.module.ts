@@ -20,6 +20,7 @@ import { LoginStatusComponent } from './components/login-status/login-status.com
 import { AuthGuard } from './auth.guard';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { OrderHistoryDetailsComponent } from './components/order-history-details/order-history-details.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
     OrderHistoryDetailsComponent
   ],
   imports: [
+    FontAwesomeModule,
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,

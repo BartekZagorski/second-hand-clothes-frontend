@@ -1,9 +1,15 @@
-<div class="form-header" >
-    <input  #myInput type="text"
+  <div class="container">
+    <form class="d-flex" role="search">
+      <input #myInput
+            class="form-control me-2 rounded-pill"
+            type="search"
             placeholder="Szukaj produktu ..."
-            class="au-input au-input-xl"
-            (keyup.enter)="doSearch(myInput.value)"/>
-    <button (click)="doSearch(myInput.value)" class="au-btn-submit">
-      Szukaj
-    </button>
+            aria-label="Search"
+            (keyup.enter)="doSearch(myInput.value)">
+      <button (click)="doSearch(myInput.value)"
+              class="btn btn-success rounded-pill"
+              data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar">
+        Szukaj
+      </button>
+    </form>
   </div>

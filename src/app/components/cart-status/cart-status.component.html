@@ -1,8 +1,17 @@
-<div class="cart-area d-n">
-    <a routerLink="/cart-details">
-        <div class="total">{{ totalPrice | currency: 'PLN '}}
-            <span> {{ totalQuantity }}</span> 
-        </div> 
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-    </a>
-</div>
+
+
+            <a routerLink="/cart-details" class="btn-group text-decoration-none m-1 p-2"
+            data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar">
+
+                
+                <button class="btn btn-success col-auto rounded-start-5"><i class="fa fa-shopping-cart pe-1"
+                    aria-hidden="true"></i>{{ totalPrice | currency: 'PLN '}}</button>
+                <button class="btn btn-light col-auto rounded-end-5 border-success"> {{ totalQuantity }}</button>
+                
+
+                </a>
+
+
+
+
+

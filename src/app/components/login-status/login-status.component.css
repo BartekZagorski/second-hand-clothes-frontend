@@ -5,17 +5,21 @@
 
 */
 
+:host{
+    width: 100%;
+}
+
 .security-btn{
     position:relative;
     right:0;
     min-width:95px;
     color:#fff;
-    border:10px solid #205b8d;
+    border:5px solid #25642e;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:43px;
     margin: 0 5px;
-    background:#205b8d
+    background:#25642e
 }
 
 /*
