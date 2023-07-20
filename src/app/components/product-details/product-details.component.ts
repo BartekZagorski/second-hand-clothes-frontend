@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -22,10 +23,14 @@ export class ProductDetailsComponent implements OnInit {
   searchMode: boolean = false;
   searchKeyword: string = '';
 
+  selectedFiles: File[] = [];
+  roles: string[] = [];
+
   constructor(private productService: ProductService,
               private cartService: CartService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private oauthService: OAuthService) { }
 
   ngOnInit(): void {
     this.updateProductDetails();
@@ -33,6 +38,7 @@ export class ProductDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.handleProductDetails();
     })
+    this. roles = this.oauthService.getIdentityClaims()['realm_access']['roles'];
   }
   
   handleProductDetails() {
@@ -46,6 +52,7 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.getProductImageUrlList(currentId).subscribe(
       data => {
         this.images = data;
+        console.log(this.images);
       }
     )
     
@@ -86,5 +93,24 @@ export class ProductDetailsComponent implements OnInit {
       this.router.navigateByUrl(redirectUrl + this.categoryNumber);
     }
   }
+
+selectFile(event: any) {
+  this.selectedFiles.push(...event.addedFiles);
+  console.log(this.selectedFiles);
+}
+
+onRemove(event: File) {
+  console.log(event);
+  this.selectedFiles.splice(this.selectedFiles.indexOf(event), 1);
+}
+
+uploadFile() {
+  const productId = this.route.snapshot.paramMap.get("id")!;
+
+  this.productService.pushFile(this.selectedFiles, productId).subscribe({
+    next: response => alert("plik załadowany"),
+    error: err => alert(`Wystąpił błąd: ${err.message}`)
+  });
+}
 
 }

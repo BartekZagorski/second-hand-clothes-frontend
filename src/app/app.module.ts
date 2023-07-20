@@ -21,6 +21,7 @@ import { AuthGuard } from './auth.guard';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { OrderHistoryDetailsComponent } from './components/order-history-details/order-history-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 const routes: Routes = [
@@ -67,7 +68,8 @@ const routes: Routes = [
           allowedUrls: ['http://localhost:8080/api/'],
           sendAccessToken: true
       }
-  })
+  }),
+  NgxDropzoneModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

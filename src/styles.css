@@ -1,11 +1,35 @@
+.page-container{
+    display: flex;
+    align-items: stretch;
+    flex-direction:column;
+    min-height: 100svh;
+}
 .main-content{
     min-height: 70svh;
+    flex-grow: 1;
+}
+
+.footer{
+    flex-shrink: 0;
 }
 
 .link-dark.active-link {
-    color: rgb(13, 110, 253) !important;
+    color: #0c63e4 !important;
 }
 
 img {
     max-height: 60svh;
+}
+
+#offcanvasCategories {
+    top: 4.3rem !important;
+    left: 0 !important;
+}
+
+header>nav{
+    height: 4.3rem;
+}
+
+.detail-hyperlink {
+    cursor: pointer;
 }

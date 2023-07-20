@@ -1,103 +1,80 @@
-<div class="main-content container-fluid p-0">
-
-  <header class="navbar navbar-expand-lg header-desktop bd-navbar sticky-top p-0">
-    <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap bg-warning">
-      <div class="bd-navbar-toggle">
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCategories" aria-controls="offcanvasNavbar">
-          <fa-icon [icon]="faKebab"></fa-icon>
-        </button>
-      </div>
-      <div class="logo col-lg-2">
-        <a href="home.html">
-          <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
-        </a>
-      </div>
-      <div class="d-flex">
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <div class="offcanvas-lg offcanvas-end flex-grow-1 col-xl-10" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Second Hand</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar"></button>
-        </div>
-        <div class="offcanvas-body d-flex flex-lg-row flex-column justify-content-lg-between justify-content-start p-0 row-lg">
-            <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-3">
-              <app-search></app-search>
-            </div>
-            <hr class="d-lg-none">
-            <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-auto">
-              <app-login-status></app-login-status>
-            </div>
-            <hr class="d-lg-none">
-            <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-3">
-              <app-cart-status></app-cart-status>
-            </div>
-
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <div class="container-fluid h-100">
-    <!-- HEADER DESKTOP-->
-    <!-- <header class="header-desktop">
-      <div class="section-content section-content-p30">
-        <div class="container-fluid">
-          <div class="header-wrap">
-              <app-search></app-search>
-              <app-login-status></app-login-status>
-              <app-cart-status></app-cart-status>
-          </div>
-          <div class="account-wrap"></div>
-        </div>
-      </div>
-    </header> -->
-
-
-    <!-- END HEADER DESKTOP-->
-
-
-
-    <!-- MAIN CONTENT-->
-
-      <!-- <router-outlet></router-outlet>  this is kind of placeholder that renders the content of this page -->
-
-
-    <!-- <app-product-list></app-product-list> -->
-    
-      
-      <div class="row h-100">
-        <div class="col-lg-2 h-100 p-0 offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasCategories" aria-labelledby="offcanvasNavbarLabel">
-          <aside>
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Kategorie</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasCategories"></button>
-              </div>
-              <div class="offcanvas-body h-100">
-                  <app-product-category-menu></app-product-category-menu>
-              </div>
-          </aside>
-        </div>
-        <div class="col-lg-10 h-100 mt-3">
-          <router-outlet></router-outlet>
-        </div>
+<div class="page-container">
+  <div class="main-content container-fluid p-0">
   
-      </div>
+    <header class="navbar navbar-expand-lg header-desktop bd-navbar sticky-top p-0">
+      <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap bg-warning">
+        <div class="bd-navbar-toggle">
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCategories" aria-controls="offcanvasNavbar">
+            <fa-icon [icon]="faKebab"></fa-icon>
+          </button>
+        </div>
+        <div class="logo col-lg-2">
+          <a href="home.html">
+            <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
+          </a>
+        </div>
+        <div class="d-flex">
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="offcanvas-lg offcanvas-end flex-grow-1 col-xl-10" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Second Hand</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasNavbar"></button>
+          </div>
+          <div class="offcanvas-body d-flex flex-lg-row flex-column justify-content-lg-between justify-content-start p-0 row-lg">
+              <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-3">
+                <app-search></app-search>
+              </div>
+              <hr class="d-lg-none">
+              <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-auto">
+                <app-login-status></app-login-status>
+              </div>
+              <hr class="d-lg-none">
+              <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-3">
+                <app-cart-status></app-cart-status>
+              </div>
+  
+          </div>
+        </div>
+      </nav>
+    </header>
+  
+    <div class="container-fluid h-100">
+          
+        
+        <div class="row h-100">
+          <div class="col-lg-2 h-100 p-0 offcanvas-lg offcanvas-start sticky-lg-top" tabindex="-1" id="offcanvasCategories" aria-labelledby="offcanvasNavbarLabel">
+            <aside>
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Kategorie</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#offcanvasCategories"></button>
+                </div>
+                <div class="offcanvas-body h-100">
+                    <app-product-category-menu></app-product-category-menu>
+                </div>
+            </aside>
+          </div>
+          <div class="col-lg-10 h-100 mt-3">
+            <router-outlet></router-outlet>
+          </div>
     
-
+        </div>
+      
+  
+    </div>
   </div>
+  
+      <!-- END PAGE CONTAINER-->
+  
+  
+  <footer class="container-fluid mt-3 footer">
+    <div class="row bg-dark">
+  
+        <div class="col-12 col-lg-4 d-flex justify-content-center border-lg-end border-dark pt-3 pb-2 p-lg-4"><a href="#" class="link-light text-decoration-none">About Us</a></div>
+        <div class="col-12 col-lg-4 d-flex justify-content-center border-lg-end border-light pt-3 pb-2 p-lg-4"><a href="#" class="link-light text-decoration-none">Contact Us</a></div>
+        <div class="col-12 col-lg-4 d-flex justify-content-center border-light p-3 p-lg-4"><a href="#" class="link-light text-decoration-none">Help</a></div>
+    </div>
+  </footer>
 </div>
-
-  	<!-- END PAGE CONTAINER-->
-
-
-<footer class="container-fluid mt-3">
-  <div class="row bg-dark">
-
-      <div class="col-12 col-lg-4 d-flex justify-content-center border-lg-end border-dark pt-3 pb-2 p-lg-4"><a href="#" class="link-light text-decoration-none">About Us</a></div>
-      <div class="col-12 col-lg-4 d-flex justify-content-center border-lg-end border-light pt-3 pb-2 p-lg-4"><a href="#" class="link-light text-decoration-none">Contact Us</a></div>
-      <div class="col-12 col-lg-4 d-flex justify-content-center border-light p-3 p-lg-4"><a href="#" class="link-light text-decoration-none">Help</a></div>
-  </div>
-</footer>
