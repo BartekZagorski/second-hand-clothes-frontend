@@ -22,10 +22,13 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { OrderHistoryDetailsComponent } from './components/order-history-details/order-history-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ImagesComponent } from './components/images/images.component';
+import { UploadFileComponent } from './components/upload-file/upload-file.component';
 
 
 const routes: Routes = [
 
+  { path: 'products/:id/images', component: ImagesComponent, canActivate: [AuthGuard] },
   { path: 'order-history/:email/:id', component: OrderHistoryDetailsComponent, canActivate: [AuthGuard] },
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent},
@@ -53,7 +56,9 @@ const routes: Routes = [
     CheckoutComponent,
     LoginStatusComponent,
     OrderHistoryComponent,
-    OrderHistoryDetailsComponent
+    OrderHistoryDetailsComponent,
+    ImagesComponent,
+    UploadFileComponent
   ],
   imports: [
     FontAwesomeModule,

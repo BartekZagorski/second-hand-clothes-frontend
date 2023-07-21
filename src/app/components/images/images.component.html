@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row gy-3">
+        
+        <div class="image-wrapper col-lg-3 position-relative" *ngFor="let image of images">
+            <div class="trash-image position-absolute top-0 end-0 mt-1 me-3 d-none"><i class="fa fa-solid fa-trash fa-shake"></i></div>
+            <img class="img-fluid" [src]="image" alt="empty">
+        </div>
+        
+        
+    </div>
+
+    <app-upload-file></app-upload-file>
+</div>

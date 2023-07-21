@@ -33,3 +33,11 @@ header>nav{
 .detail-hyperlink {
     cursor: pointer;
 }
+
+.slider-wrapper{
+    cursor: pointer;
+}
+
+.image-wrapper:hover .trash-image {
+    display: block!important;
+}

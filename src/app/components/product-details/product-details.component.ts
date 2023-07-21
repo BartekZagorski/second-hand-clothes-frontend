@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
 import { CartService } from 'src/app/services/cart.service';
+import { ImageService } from 'src/app/services/image.service';
 import { ProductService } from 'src/app/services/product.service';
+import { UploadFileComponent } from '../upload-file/upload-file.component';
 
 @Component({
   selector: 'app-product-details',
@@ -16,18 +19,19 @@ export class ProductDetailsComponent implements OnInit {
   public product!: Product;
   public images: string[] = [];
 
-  categoryNumber: number = 0;
-  pageNumber: number = 0;
+  categoryNumber: number = 3;
+  pageNumber: number = 1;
   pageSize: number = 3;
   isSuperCategory: boolean = false;
   searchMode: boolean = false;
   searchKeyword: string = '';
 
-  selectedFiles: File[] = [];
+  
   roles: string[] = [];
 
   constructor(private productService: ProductService,
               private cartService: CartService,
+              private imageService: ImageService,
               private router: Router,
               private route: ActivatedRoute,
               private oauthService: OAuthService) { }
@@ -49,7 +53,7 @@ export class ProductDetailsComponent implements OnInit {
         this.product = data;
       }
     )
-    this.productService.getProductImageUrlList(currentId).subscribe(
+    this.imageService.getProductImageUrlList(currentId).subscribe(
       data => {
         this.images = data;
         console.log(this.images);
@@ -66,7 +70,7 @@ export class ProductDetailsComponent implements OnInit {
 
   updateProductDetails() {
     this.productService.categoryNumber.subscribe(
-      data => {this.categoryNumber = data;}
+      data => {data!=0?this.categoryNumber = data:null;}
     );
     this.productService.pageNumber.subscribe(
       data => {this.pageNumber = data;}
@@ -94,23 +98,11 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-selectFile(event: any) {
-  this.selectedFiles.push(...event.addedFiles);
-  console.log(this.selectedFiles);
-}
 
-onRemove(event: File) {
-  console.log(event);
-  this.selectedFiles.splice(this.selectedFiles.indexOf(event), 1);
-}
+  editImages() {
+    const productId = this.route.snapshot.paramMap.get("id");
 
-uploadFile() {
-  const productId = this.route.snapshot.paramMap.get("id")!;
-
-  this.productService.pushFile(this.selectedFiles, productId).subscribe({
-    next: response => alert("plik załadowany"),
-    error: err => alert(`Wystąpił błąd: ${err.message}`)
-  });
-}
+    this.router.navigateByUrl(`/products/${productId}/images`);
+  }
 
 }

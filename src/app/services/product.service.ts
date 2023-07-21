@@ -41,13 +41,6 @@ export class ProductService {
       map(response => response._embedded.products)
       );
     }
-    
-    getProductImageUrlList(productId: number): Observable<string[]> {
-      
-      const searchUrl = this.baseUrl + 'images?productId=' + productId;
-      
-      return this.httpClient.get<string[]>(searchUrl);
-      }
       
       getProductListPaginate(thePage: number, thePageSize: number, theCategoryId: number, isSuperCategory: boolean = false): Observable<ProductGetResponse> {
         
@@ -117,26 +110,6 @@ export class ProductService {
   }
 
 
-
-
-  pushFile(files: File[], productId: string): Observable<any> {
-    const postUrl = this.baseUrl + "images";
-
-    const formData = new FormData();
-
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.append('Content-Type', 'multipart/form-data');
-
-    for (var i = 0; i < files.length; i++) { 
-      formData.append("images", files[i]);
-    }
-
-    formData.append("productId", productId);
-    return this.httpClient.post(postUrl, formData, {
-      headers: httpHeaders,
-      responseType: 'blob'
-    });
-  }
 }
 
 
@@ -164,12 +137,12 @@ interface SuperCategoryGetResponse {
   }
 }
 
-interface ImageGetResponse {
-  _embedded: {
-    images: [
-      {
-        url: string;
-      }
-    ]
-  }
-}
+// interface ImageGetResponse {
+//   _embedded: {
+//     images: [
+//       {
+//         url: string;
+//       }
+//     ]
+//   }
+// }

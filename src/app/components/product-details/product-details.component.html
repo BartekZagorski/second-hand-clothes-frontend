@@ -8,27 +8,14 @@
                     <div class="col-md-6">
                         <ngb-carousel #carousel [interval]="5000">
                             <ng-template ngbSlide *ngFor="let imageUrl of images">
-                                <div class="slider-wrapper d-flex justify-content-center align-items-center">
-                                    <img src="{{ imageUrl}}" class="detail-img" alt="">
+                                <div (click)="editImages()" class="slider-wrapper d-flex justify-content-center align-items-center">
+                                    <img [src]="imageUrl" class="detail-img" alt="">
                                 </div>
                             </ng-template>
                           </ngb-carousel>
                     </div>
                 </div>
-                <form *ngIf="roles.indexOf('second-hand-app-admin') > -1" class="my-3">
-                    <div class="custom-dropzone my-2" ngx-dropzone [accept]="'image/*'" (change)="selectFile($event)">
-                        <ngx-dropzone-label>
-                            <div>
-                                <h2>Dodaj zdjęcia</h2>
-                            </div>
-                        </ngx-dropzone-label>
-                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of selectedFiles" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                        </ngx-dropzone-image-preview>
-                    </div>
-                    <button type="button" (click)="uploadFile()" class="btn btn-success btn-small">wyślij</button>
-                    
-                </form>
+                <app-upload-file *ngIf="roles.indexOf('second-hand-app-admin') > -1"></app-upload-file>
             </div>
 
 
