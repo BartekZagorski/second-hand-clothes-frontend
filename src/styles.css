@@ -37,7 +37,21 @@ header>nav{
 .slider-wrapper{
     cursor: pointer;
 }
+.trash-image {
+    cursor: pointer;
+}
+
+.image-wrapper {
+    width: max-content;
+}
 
 .image-wrapper:hover .trash-image {
     display: block!important;
+}
+
+@media screen and (min-width: 992px){
+    .image-wrapper {
+        max-width: 33%;
+    }
+
 }

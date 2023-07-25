@@ -7,9 +7,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <ngb-carousel #carousel [interval]="5000">
-                            <ng-template ngbSlide *ngFor="let imageUrl of images">
+                            <ng-template ngbSlide *ngFor="let image of images">
                                 <div (click)="editImages()" class="slider-wrapper d-flex justify-content-center align-items-center">
-                                    <img [src]="imageUrl" class="detail-img" alt="">
+                                    <img [src]="image.url" class="detail-img" alt="">
                                 </div>
                             </ng-template>
                           </ngb-carousel>

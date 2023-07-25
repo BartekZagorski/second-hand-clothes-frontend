@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Image } from '../common/image';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class ImageService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductImageUrlList(productId: number): Observable<string[]> {
+  getProductImageUrlList(productId: number): Observable<Image[]> {
       
     const searchUrl = this.baseUrl + 'images?productId=' + productId;
     
-    return this.httpClient.get<string[]>(searchUrl);
+    return this.httpClient.get<Image[]>(searchUrl);
     }
 
   

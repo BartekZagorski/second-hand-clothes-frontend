@@ -8,6 +8,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ProductService } from 'src/app/services/product.service';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
+import { Image } from 'src/app/common/image';
 
 @Component({
   selector: 'app-product-details',
@@ -17,7 +18,7 @@ import { UploadFileComponent } from '../upload-file/upload-file.component';
 export class ProductDetailsComponent implements OnInit {
 
   public product!: Product;
-  public images: string[] = [];
+  public images: Image[] = [];
 
   categoryNumber: number = 3;
   pageNumber: number = 1;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
+import { Image } from 'src/app/common/image';
 
 @Component({
   selector: 'app-images',
@@ -9,7 +10,7 @@ import { ImageService } from 'src/app/services/image.service';
 })
 export class ImagesComponent implements OnInit {
 
-  public images: string[] = [];
+  public images: Image[] = [];
 
   constructor(private imageService: ImageService,
               private route: ActivatedRoute) { }
@@ -27,6 +28,8 @@ export class ImagesComponent implements OnInit {
       }
     );
   }
+
+
 
 
 
