@@ -39,4 +39,10 @@ export class ImageService {
     });
   }
 
+  removeImage(id: number) : Observable<any> {
+    const deleteUrl = this.baseUrl+"images/"+id;
+
+    return this.httpClient.delete(deleteUrl);
+  }
+
 }
