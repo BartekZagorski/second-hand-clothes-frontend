@@ -28,9 +28,9 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
 
 const routes: Routes = [
 
-  { path: 'products/:id/images', component: ImagesComponent, canActivate: [AuthGuard] },
+  { path: 'products/:id/images', component: ImagesComponent, canActivate: [AuthGuard], data: { roles: ['second-hand-app-admin']} },
   { path: 'order-history/:email/:id', component: OrderHistoryDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard], data: { roles: ['second-hand-app-user']} },
   { path: 'checkout', component: CheckoutComponent},
   { path: 'cart-details', component: CartDetailsComponent},
   { path: 'search/:keyword', component: ProductListComponent},

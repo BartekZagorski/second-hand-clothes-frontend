@@ -8,7 +8,9 @@
                     <div class="col-md-6">
                         <ngb-carousel #carousel [interval]="5000">
                             <ng-template ngbSlide *ngFor="let image of images">
-                                <div (click)="editImages()" class="slider-wrapper d-flex justify-content-center align-items-center">
+                                <div (click)="roles.includes('second-hand-app-admin') && editImages()"
+                                    [ngClass]="{'slider-wrapper' : roles.includes('second-hand-app-admin')}" 
+                                    class="d-flex justify-content-center align-items-center">
                                     <img [src]="image.url" class="detail-img" alt="">
                                 </div>
                             </ng-template>

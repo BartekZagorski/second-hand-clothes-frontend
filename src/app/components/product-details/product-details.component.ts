@@ -43,7 +43,9 @@ export class ProductDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.handleProductDetails();
     })
-    this. roles = this.oauthService.getIdentityClaims()['realm_access']['roles'];
+    if(this.oauthService.hasValidAccessToken()) {
+      this. roles = this.oauthService.getIdentityClaims()['realm_access']['roles'];
+    }
   }
   
   handleProductDetails() {
