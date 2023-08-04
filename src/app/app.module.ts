@@ -24,10 +24,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ImagesComponent } from './components/images/images.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 
 
 const routes: Routes = [
 
+  { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard], data: { roles: ['second-hand-app-admin']} },
   { path: 'products/:id/images', component: ImagesComponent, canActivate: [AuthGuard], data: { roles: ['second-hand-app-admin']} },
   { path: 'order-history/:email/:id', component: OrderHistoryDetailsComponent, canActivate: [AuthGuard] },
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard], data: { roles: ['second-hand-app-user']} },
@@ -58,7 +60,8 @@ const routes: Routes = [
     OrderHistoryComponent,
     OrderHistoryDetailsComponent,
     ImagesComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    AddProductComponent
   ],
   imports: [
     FontAwesomeModule,
