@@ -5,13 +5,13 @@
         
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-6">
+                    <div class="col justify-content-center">
                         <ngb-carousel #carousel [interval]="5000">
                             <ng-template ngbSlide *ngFor="let image of images">
                                 <div (click)="roles.includes('second-hand-app-admin') && editImages()"
                                     [ngClass]="{'slider-wrapper' : roles.includes('second-hand-app-admin')}" 
                                     class="d-flex justify-content-center align-items-center">
-                                    <img [src]="image.url" class="detail-img" alt="">
+                                    <img class="img-fluid" [src]="image.url" alt="">
                                 </div>
                             </ng-template>
                           </ngb-carousel>
@@ -23,8 +23,10 @@
 
             <h3>{{product.name}}</h3>
             <div class="price">{{product.unitPrice | currency: 'PLN' }}</div>
-            <button (click)="addToTheCart()" class="btn btn-success btn-small"><i class="fa fa-shopping-cart pe-2"
-                aria-hidden="true"></i>Dodaj do koszyka</button>
+            <button (click)="addToTheCart()" class="btn btn-success btn-small" 
+                    [disabled]="roles.indexOf('second-hand-app-admin') > -1">
+                    <i class="fa fa-shopping-cart pe-2"
+                    aria-hidden="true"></i>Dodaj do koszyka</button>
 
             <hr>
             <h4>Opis</h4>
