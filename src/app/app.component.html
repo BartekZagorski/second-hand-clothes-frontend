@@ -32,8 +32,10 @@
                 <app-login-status></app-login-status>
               </div>
               <hr class="d-lg-none">
-              <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-center col-lg-3">
-                <app-cart-status></app-cart-status>
+              <div class="d-flex flex-lg-row flex-column flex-wrap p-1 align-content-start justify-content-center col-lg-3">
+                <app-cart-status *ngIf="roles.indexOf('second-hand-app-admin') === -1"></app-cart-status>
+                <a *ngIf="roles.indexOf('second-hand-app-admin') > -1" href="/add-product"
+                  class="btn btn-success rounded-pill my-1 mx-3 m-lg-0">dodaj produkt</a>
               </div>
   
           </div>

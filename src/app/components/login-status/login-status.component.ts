@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
-import { authCodeFlowConfig } from 'src/app/sso-config';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login-status',
@@ -13,37 +11,28 @@ export class LoginStatusComponent implements OnInit {
 
   userFullName: string = '';
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    console.log("ngOnInit invoked");
     this.configureSSO();
+    this.authService.userFullName.subscribe(
+      data => this.userFullName = data
+    );
   }
 
   configureSSO() {
-    this.oauthService.configure(authCodeFlowConfig);
-    this.oauthService.setupAutomaticSilentRefresh();
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(
-      () => {
-        const userClaims: any = this.oauthService.getIdentityClaims();
-        this.userFullName = userClaims?.name ? userClaims?.name : "";
-      }
-    );
-
+    this.authService.configureSSO();
   }
 
   login(){
-    console.log("trying to invoke this function");
-    this.oauthService.initCodeFlow();
+    this.authService.login();
   }
 
   logout(){
-    this.oauthService.logOut();
+    this.authService.logout();
   }
 
   public get token() {
-    let claims =  this.oauthService.getIdToken();
-    return claims ? claims : null;
+    return this.authService.token;
   }
 }

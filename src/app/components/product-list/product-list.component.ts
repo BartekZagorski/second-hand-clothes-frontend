@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -30,16 +31,22 @@ export class ProductListComponent implements OnInit {
 
   previousKeyword: string = "";
 
+  roles: string[] = [];
+
   constructor(private productService: ProductService,
               private cartService: CartService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private oauthService: OAuthService) { }
 
   ngOnInit(): void {
     this.updateCategoryData();
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
+    if(this.oauthService.hasValidAccessToken()) {
+      this. roles = this.oauthService.getIdentityClaims()['realm_access']['roles'];
+    }
   }
 
   listProducts() {
