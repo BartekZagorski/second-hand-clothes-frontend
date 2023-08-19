@@ -17,7 +17,7 @@ import { Image } from 'src/app/common/image';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  public product!: Product;
+  public product?: Product;
   public images: Image[] = [];
 
   categoryNumber: number = 3;
@@ -29,6 +29,8 @@ export class ProductDetailsComponent implements OnInit {
 
   
   roles: string[] = [];
+
+  @ViewChild(UploadFileComponent, {static : true}) uploadFileComponent!:UploadFileComponent;
 
   constructor(private productService: ProductService,
               private cartService: CartService,
@@ -50,7 +52,6 @@ export class ProductDetailsComponent implements OnInit {
   
   handleProductDetails() {
     const currentId = +this.route.snapshot.paramMap.get("id")!;
-
     this.productService.getProduct(currentId).subscribe(
       data => {
         this.product = data;
@@ -62,11 +63,10 @@ export class ProductDetailsComponent implements OnInit {
         console.log(this.images);
       }
     )
-    
   }
 
   addToTheCart() {
-    const theCartItem = new CartItem(this.product);
+  const theCartItem = new CartItem(this.product!);
 
     this.cartService.addToCart(theCartItem);
   }
@@ -106,6 +106,10 @@ export class ProductDetailsComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get("id");
 
     this.router.navigateByUrl(`/products/${productId}/images`);
+  }
+
+  uploadFile() {
+    this.uploadFileComponent.uploadFile();
   }
 
 }

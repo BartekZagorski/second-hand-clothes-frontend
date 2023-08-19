@@ -25,6 +25,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ImagesComponent } from './components/images/images.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { FormsModule } from '@angular/forms';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const routes: Routes = [
@@ -77,7 +80,10 @@ const routes: Routes = [
           sendAccessToken: true
       }
   }),
-  NgxDropzoneModule
+  NgxDropzoneModule,
+  FormsModule,
+  TypeaheadModule.forRoot(),
+  BrowserAnimationsModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

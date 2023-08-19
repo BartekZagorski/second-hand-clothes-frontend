@@ -6,6 +6,7 @@ import { Product } from '../common/product';
 import { ProductCategory } from '../common/product-category';
 import { SuperCategory } from '../common/super-category';
 import { ActivatedRoute } from '@angular/router';
+import { ProductDTO } from '../common/product-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -59,14 +60,22 @@ export class ProductService {
           map(response => response._embedded.productCategories)
           );
         }
-        
-        getSuperCategories(): Observable<SuperCategory[]> {
-          const searchUrl = this.baseUrl + 'super-categories';
 
-    return this.httpClient.get<SuperCategoryGetResponse>(searchUrl).pipe(
-      map(response => response._embedded.superCategories)
-    );
-  }
+      getProductCategoriesBySuperCategoryName(superCategoryName: string): Observable<ProductCategory[]> {
+        const searchUrl = this.baseUrl + 'product-categories/search/findBySuperCategoryName?name=' + superCategoryName;
+
+        return this.httpClient.get<ProductCategoryGetResponse>(searchUrl).pipe(
+          map(response => response._embedded.productCategories)
+          );
+      }
+        
+      getSuperCategories(): Observable<SuperCategory[]> {
+        const searchUrl = this.baseUrl + 'super-categories';
+
+        return this.httpClient.get<SuperCategoryGetResponse>(searchUrl).pipe(
+          map(response => response._embedded.superCategories)
+        );
+      }
 
   searchProducts(theKeyword: string): Observable<Product[]> {
     const searchUrl = this.baseUrl + 'products/search/findByNameContaining?name=' + theKeyword;
@@ -81,6 +90,12 @@ export class ProductService {
       const searchURL = `${this.baseUrl}products/search/findByNameContaining?name=${theKeyword}&page=${thePage}&size=${thePageSize}`;
 
     return this.httpClient.get<ProductGetResponse>(searchURL);
+  }
+
+  pushProduct(product: ProductDTO): Observable<any> {
+    const pushUrl = this.baseUrl + "products";
+
+    return this.httpClient.post<ProductDTO>(pushUrl, product);
   }
 
 

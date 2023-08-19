@@ -1,8 +1,6 @@
 <div class="detail-section">
     <div class="container-fluid">
-
-        <div *ngIf=" product !== undefined ">
-        
+     
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col justify-content-center">
@@ -17,12 +15,14 @@
                           </ngb-carousel>
                     </div>
                 </div>
-                <app-upload-file *ngIf="roles.indexOf('second-hand-app-admin') > -1"></app-upload-file>
+                <app-upload-file [hidden]="roles.indexOf('second-hand-app-admin') == -1"></app-upload-file>
+                <button [hidden]="roles.indexOf('second-hand-app-admin') == -1" type="button" (click)="uploadFile()" class="btn btn-success btn-small">wyślij</button>
+
             </div>
 
 
-            <h3>{{product.name}}</h3>
-            <div class="price">{{product.unitPrice | currency: 'PLN' }}</div>
+            <h3>{{product?.name}}</h3>
+            <div class="price">{{product?.unitPrice | currency: 'PLN' }}</div>
             <button (click)="addToTheCart()" class="btn btn-success btn-small" 
                     [disabled]="roles.indexOf('second-hand-app-admin') > -1">
                     <i class="fa fa-shopping-cart pe-2"
@@ -30,11 +30,10 @@
 
             <hr>
             <h4>Opis</h4>
-            <p>{{product.description}}</p>
+            <p>{{product?.description}}</p>
 
             <a (click)="getBacktoTheProductList()" class="mt-5 detail-hyperlink">Powrót do listy produktów</a>
-
-        </div>
+            
     </div>
 </div>
   

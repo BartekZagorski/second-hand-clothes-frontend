@@ -1,4 +1,4 @@
-import { FormControl, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export class SecondHandValidators {
 
@@ -18,6 +18,19 @@ export class SecondHandValidators {
             return {'minTwoCharacters' : true};
         } else {
             return null;
+        }
+    }
+
+    static atLeastSomeLettersWithNoWhiteSpace(numberOfLetters: number) : ValidatorFn {
+        return (control : AbstractControl) : ValidationErrors | null => {
+            if (control.value != null && control.value.trim().length < numberOfLetters) {
+                let result: ValidationErrors = {};
+                const key: string = `min${numberOfLetters}Characters`;
+                result[key] = true;
+                return result;
+            } else {
+                return null;
+            }
         }
     }
 }

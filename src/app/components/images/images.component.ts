@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/common/image';
+import { UploadFileComponent } from '../upload-file/upload-file.component';
 
 @Component({
   selector: 'app-images',
   templateUrl: './images.component.html',
-  styleUrls: ['./images.component.css']
+  styleUrls: ['./images.component.css'],
 })
 export class ImagesComponent implements OnInit {
 
   public images: Image[] = [];
+
+  @ViewChild(UploadFileComponent, {static : true}) uploadFileComponent!:UploadFileComponent;
 
   constructor(private imageService: ImageService,
               private route: ActivatedRoute) { }
@@ -45,6 +48,9 @@ export class ImagesComponent implements OnInit {
     });
   }
 
+  uploadFile() {
+    this.uploadFileComponent.uploadFile();
+  }
 
 
 
