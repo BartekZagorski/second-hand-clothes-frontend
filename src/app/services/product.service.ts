@@ -92,12 +92,32 @@ export class ProductService {
     return this.httpClient.get<ProductGetResponse>(searchURL);
   }
 
-  pushProduct(product: ProductDTO): Observable<any> {
-    const pushUrl = this.baseUrl + "products";
+  pushProduct(product: ProductDTO, files: File[]): Observable<any> {
+    const postUrl = this.baseUrl + "products";
 
-    return this.httpClient.post<ProductDTO>(pushUrl, product);
+    const formData = new FormData();
+
+    const httpHeaders = new HttpHeaders();
+    httpHeaders.append('Content-Type', 'multipart/form-data');
+
+    for (var i = 0; i < files.length; i++) { 
+      formData.append("images", files[i], files[i].name);
+    }
+
+    formData.append("product", new Blob([JSON.stringify(product)], {type: "application/json"}));
+
+
+    return this.httpClient.post(postUrl, formData, {
+      headers: httpHeaders,
+      responseType: 'blob'
+    });
   }
 
+  deleteProduct(id: number): Observable<any> {
+    const deleteUrl = this.baseUrl+"products?id="+id;
+
+    return this.httpClient.delete(deleteUrl)
+  }
 
   
   updateCategoryNumber(categoryNumber: number) {

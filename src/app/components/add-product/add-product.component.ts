@@ -70,22 +70,13 @@ export class AddProductComponent implements OnInit {
     const files = this.addProductGroup.controls['images'].value;
     product.imageUrl = "assets/" + files[0].name;
 
-    console.log(product);
-
-    this.productService.pushProduct(product).subscribe({
-      next: response => {
-        alert("Dodano produkt");
-        this.imageService.pushFile(files, response.id).subscribe({
-          next: response => {
-            alert("plik załadowany");
-            window.location.reload();
-          },
-          error: err => alert(`Wystąpił błąd: ${err.message}`)
-        });
-
-      },
-      error: err => alert(`Wystąpił błąd: ${err.message}`)
-    });
+    this.productService.pushProduct(product, files).subscribe({
+            next: response => {
+              alert("plik załadowany");
+              window.location.reload();
+            },
+            error: err => alert(`Wystąpił błąd: ${err.message}`)
+          });
   }
 
   getSuperCategories() {
