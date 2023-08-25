@@ -35,7 +35,7 @@ export class ImageService {
     formData.append("productId", productId);
     return this.httpClient.post(postUrl, formData, {
       headers: httpHeaders,
-      responseType: 'blob'
+      responseType: 'text'
     });
   }
 

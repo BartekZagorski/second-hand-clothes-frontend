@@ -112,4 +112,14 @@ export class ProductDetailsComponent implements OnInit {
     this.uploadFileComponent.uploadFile();
   }
 
+  deleteProduct() {
+    this.productService.deleteProduct(+this.product!.id).subscribe({
+      next: response => {
+        alert("produkt został usunięty");
+        this.router.navigateByUrl('/products');
+      },
+      error: err => alert(`Wystąpił błąd: ${err.message}`)
+    });
+  }
+
 }

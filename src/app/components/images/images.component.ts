@@ -36,16 +36,17 @@ export class ImagesComponent implements OnInit {
 
     const imageIndex = this.images.findIndex(i => i.id === image.id);
 
-    if (imageIndex > -1) {
+    if (imageIndex > 0) {
       this.images.splice(imageIndex, 1);
+      this.imageService.removeImage(image.id).subscribe({
+        next: response => {
+          alert("plik został usunięty");
+        },
+        error: err => alert(`Wystąpił błąd: ${err.message}`)
+      });
+    } else {
+      alert("nie można usunąć głównego zdjęcia!!!");
     }
-
-    this.imageService.removeImage(image.id).subscribe({
-      next: response => {
-        alert("plik został usunięty");
-      },
-      error: err => alert(`Wystąpił błąd: ${err.message}`)
-    });
   }
 
   uploadFile() {
