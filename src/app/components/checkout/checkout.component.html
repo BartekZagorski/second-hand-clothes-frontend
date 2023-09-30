@@ -239,75 +239,19 @@
                 </div>
                 <hr>
 
-                <!-- Credit Card -->
-
+                <!-- Stripe elements credit card section-->
                 <div formGroupName="creditCard" class="form-area">
-                    <h3>Karta kredytowa</h3>
+                    <h3>Karta kredytowa lub debetowa</h3>
                     <hr>
-                    <div class="row">
-                        <div class="col-md-2"><label>Card Type</label></div>
-                        <div class="col-md-9">
-                            <div class="mb-2">
-                                <select class="form-select" formControlName="cardType">
-                                    <option>Visa</option>
-                                    <option>MasterCard</option>
-                                </select>
 
-                            </div>
-                        </div>
+                    <div id="card-element" class="py-2">
+                        <!-- a Stripe element will be inserted here -->
                     </div>
-                    <div class="row">
-                        <div class="col-md-2"><label class="form-label">Nazwisko na karcie</label></div>
-                        <div class="col-md-9">
-                            <div class="mb-2">
-                                <input formControlName="nameOnCard" type="text" class="form-control">
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"><label class="form-label">Numer karty</label></div>
-                        <div class="col-md-9">
-                            <div class="mb-2">
-                                <input formControlName="cardNumber" type="text" class="form-control">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"><label class="form-label">Kod bezpieczeńśtwa</label></div>
-                        <div class="col-md-9">
-                            <div class="mb-2">
-                                <input formControlName="securityCode" type="text" class="form-control">
-                               
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"><label class="form-label">Miesiąc ważności</label></div>
-                        <div class="col-md-9">
-                            <div class="mb-2">
-                                <select class="form-select" formControlName="expirationMonth">
-                                    <option >
-                                 
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"><label class="form-label">Rok ważności</label></div>
-                        <div class="col-md-9">
-                            <div class="mb-2">
-                                <select class="form-select" formControlName="expirationYear" >
-                                    <option >
-                                       
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Used to display form errors -->
+                    <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-1'"></div>
                 </div>
+                
                 <hr>
 
                 <!-- Order details -->

@@ -16,7 +16,8 @@
                     </div>
                 </div>
                 <app-upload-file [hidden]="roles.indexOf('second-hand-app-admin') == -1"></app-upload-file>
-                <button [hidden]="roles.indexOf('second-hand-app-admin') == -1" type="button" (click)="uploadFile()" class="btn btn-success btn-small">wyślij</button>
+                <button [hidden]="roles.indexOf('second-hand-app-admin') == -1" type="button" (click)="uploadFile()"
+                class="btn btn-success btn-small">wyślij</button>
 
             </div>
 
@@ -27,9 +28,10 @@
                     [disabled]="roles.indexOf('second-hand-app-admin') > -1">
                     <i class="fa fa-shopping-cart pe-2"
                     aria-hidden="true"></i>Dodaj do koszyka</button>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger btn-small d-block mt-1" 
-            [hidden]="roles.indexOf('second-hand-app-admin') == -1">
-            <i class="fa fa-trash pe-2" aria-hidden="true"></i>Usuń produkt</button>
+            <span [hidden]="roles.indexOf('second-hand-app-admin') == -1">
+                <button  type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger btn-small d-block mt-1">
+                        <i class="fa fa-trash pe-2" aria-hidden="true"></i>Usuń produkt</button>
+            </span>
 
             <hr>
             <h4>Opis</h4>
