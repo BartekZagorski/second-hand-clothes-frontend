@@ -20,7 +20,7 @@ export class ProductService {
   searchMode: Subject<boolean> = new BehaviorSubject<boolean>(false);
   searchKeyword: Subject<string> = new BehaviorSubject<string>("");
   
-  private baseUrl = 'http://localhost:8080/api/';
+  private baseUrl = 'https://localhost:8443/api/';
   
   constructor(private httpClient: HttpClient) { 
     this.updatePageSize(3);
