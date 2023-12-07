@@ -9,8 +9,8 @@ import { Province } from '../common/province';
 })
 export class SecondHandFormService {
 
-  private provincesUrl = 'https://localhost:8443/api/provinces';
-  private placesUrl = 'https://localhost:8443/api/places';
+  private provincesUrl = 'http://localhost:8080/api/provinces';
+  private placesUrl = 'http://localhost:8080/api/places';
 
   constructor(private httpClient: HttpClient) { }
 

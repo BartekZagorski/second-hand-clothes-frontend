@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  secondHandApiUrl: 'https://localhost:8443/api',
+  secondHandApiUrl: 'http://localhost:8080/api',
   stripePublishableKey: 'pk_test_51MUjj0HVGiMmNmDnMUL9QOuMn9OsIigutBfsvgJDW1o9mZQMU1Mp2kfmodOV9CRcw3DPQITso6CjSXRnCoOc1GVo00Yn68lTAv',
   serverUrl: '/api',
   keycloak: {
