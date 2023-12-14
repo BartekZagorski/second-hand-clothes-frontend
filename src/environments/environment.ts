@@ -10,7 +10,7 @@ export const environment = {
     realm: 'second-hand',
     clientId: 'second-hand-app',
     //redirect URI
-    redirectURI: 'https://localhost:4200/products',
+    redirectURI: 'http://localhost:4200/products',
     //scope
     scope: 'openid profile email offline_access',
   },

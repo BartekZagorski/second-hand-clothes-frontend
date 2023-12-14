@@ -28,6 +28,14 @@ export class SecondHandFormService {
     );
   }
 
+  getPlacesByName(provinceId: number, name: string): Observable<Place[]> {
+    const searchUrl = this.placesUrl + "/search/findByProvinceIdAndNameStartingWithOrderByNameAsc?id=" + provinceId + "&name=" + name;
+
+    return this.httpClient.get<GetPlacesResponse>(searchUrl).pipe(
+      map(response => response._embedded.places)
+    );
+  }
+
 }
 
 interface GetProvincesResponse {

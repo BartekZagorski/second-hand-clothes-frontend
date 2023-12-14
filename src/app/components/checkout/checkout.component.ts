@@ -1,8 +1,7 @@
-import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Customer } from 'src/app/common/customer';
+import { Observable, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
 import { PaymentInfo } from 'src/app/common/payment-info';
@@ -30,10 +29,11 @@ export class CheckoutComponent implements OnInit {
   totalPriceWithShipping: number = 0.00;
 
   provinces: Province[] = [];
-  shippingPlaces: Place[] = [];
-  billingPlaces: Place[] = [];
 
   storage: Storage = sessionStorage;
+  
+  searchForShipping = this.getSearchFunction("shippingAddress");
+  searchForBilling = this.getSearchFunction("billingAddress");
 
   stripe = Stripe(environment.stripePublishableKey);
 
@@ -86,7 +86,7 @@ export class CheckoutComponent implements OnInit {
                                     Validators.minLength(2),
                                     SecondHandValidators.notOnlyWhiteSpace,
                                     SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
-        city: new FormControl('', [Validators.required]),
+        city: new FormControl({value: '', disabled: true},  [Validators.required]),
         province: new FormControl('', [Validators.required]),
         zipCode: new FormControl('',
                                     [Validators.required,
@@ -98,7 +98,7 @@ export class CheckoutComponent implements OnInit {
                                     Validators.minLength(2),
                                     SecondHandValidators.notOnlyWhiteSpace,
                                     SecondHandValidators.atLeastTwoLettersWithNoWhiteSpace]),
-        city: new FormControl('', [Validators.required]),
+        city: new FormControl({value: '', disabled: true}, [Validators.required]),
         province: new FormControl('', [Validators.required]),
         zipCode: new FormControl('',
                                     [Validators.required,
@@ -147,29 +147,26 @@ export class CheckoutComponent implements OnInit {
       }
     )
   }
-  
-  getPlaces(formGroupName: string) {
-    
-    const formGroup = this.checkoutFormGroup.get(formGroupName);
-    
-    const provinceId = formGroup?.value.province.id;
-    
-    this.secondHandFormService.getPlaces(provinceId).subscribe(
-      data => {
-        if(formGroupName === "shippingAddress") {
-          this.shippingPlaces = data;
-          //select first item by default
-          formGroup?.get('city')?.setValue(data[0]);
-          this.handleAddressControls();
-        } else {
-          this.billingPlaces = data;
-          //select first item by default
-          formGroup?.get('city')?.setValue(data[0]);
-        }
-      }
-      
+
+  getSearchFunction(formGroupName: string): (text$: Observable<string>) => Observable<string[]> {
+    return (text$: Observable<string>) =>
+      text$.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        filter(term => term.length>1),
+        switchMap((term) => this.getSearchResults(term, formGroupName))
       );
+  }
+  
+  getSearchResults(term: string, formGroupName: string): Observable<string[]> {
+  
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
       
+    const provinceId = formGroup?.value.province.id;
+  
+    return this.secondHandFormService.getPlacesByName(provinceId, term).pipe(
+      map(places => places.map(place => place.name))
+    );
   }
 
   onSubmit() {
@@ -317,9 +314,10 @@ export class CheckoutComponent implements OnInit {
     
     if (event.target.checked) {
       this.copyAddressControl();
+      this.checkoutFormGroup.get("billingAddress")?.get("city")?.enable();
     } else {
-      this.billingPlaces = []; // fixing the bug with no copying states
       this.checkoutFormGroup.controls['billingAddress'].reset();
+      this.checkoutFormGroup.get("billingAddress")?.get("city")?.disable();
     }
   }
 
@@ -344,8 +342,20 @@ export class CheckoutComponent implements OnInit {
   }
 
   copyAddressControl() {
-    this.billingPlaces = this.shippingPlaces; // fixing the bug with no copying states
     this.checkoutFormGroup.controls['billingAddress'].setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+  }
+
+  disableInput(formGroupName: string): void {
+    this.checkoutFormGroup.get(formGroupName)?.get("city")?.disable();
+  }
+
+  enableInput(formGroupName: string): void {
+    this.checkoutFormGroup.get(formGroupName)?.get("city")?.enable();
+    this.clearInput(formGroupName);
+  }
+
+  clearInput(formGroupName: string): void {
+    this.checkoutFormGroup.get(formGroupName)?.get("city")?.setValue("");
   }
 
   reviewCartDetails() {

@@ -75,7 +75,7 @@
                         <div class="col-md-2"><label class="form-label">Województwo</label></div>
                         <div class="col-md-9">
                             <div class="mb-2">
-                                <select class="form-select" formControlName="province" (change)="getPlaces('shippingAddress')">
+                                <select class="form-select" formControlName="province" (change) = 'enableInput("shippingAddress")'>
                                     <option *ngFor="let province of provinces" [ngValue]="province">
                                         {{ province.name | titlecase}}
                                     </option>
@@ -94,11 +94,15 @@
                         <div class="col-md-2"><label class="form-label">Miejscowość</label></div>
                         <div class="col-md-9">
                             <div class="mb-2">
-                                <select class="form-select" formControlName="city">
-                                    <option *ngFor="let place of shippingPlaces" [ngValue]="place">
-                                        {{place.name}}
-                                    </option>
-                                </select>
+                                    <input
+                                    type="text"
+                                    formControlName="city"
+                                    [ngbTypeahead]="searchForShipping"
+                                    [editable]="false"
+                                    placeholder="Wpisz nazwę miejscowości..."
+                                    class="form-control"                                  
+                                    />
+
                                 <div *ngIf="shippingCity?.invalid && (shippingCity?.dirty || shippingCity?.touched) && shippingProvince?.value != ''" class="alert alert-danger mt-1">
 
                                     <div *ngIf="shippingCity?.errors?.['required']">
@@ -166,7 +170,7 @@
                         <div class="col-md-2"><label class="form-label">Województwo</label></div>
                         <div class="col-md-9">
                             <div class="mb-2">
-                                <select class="form-select" formControlName="province" (change)="getPlaces('billingAddress')">
+                                <select class="form-select" formControlName="province" (change) = 'enableInput("billingAddress")'>
                                     <option *ngFor="let province of provinces" [ngValue]="province">
                                         {{ province.name | titlecase}}
                                     </option>
@@ -185,11 +189,14 @@
                         <div class="col-md-2"><label class="form-label">Miejscowość</label></div>
                         <div class="col-md-9">
                             <div class="mb-2">
-                                <select class="form-select" formControlName="city">
-                                    <option *ngFor="let place of billingPlaces" [ngValue]="place">
-                                        {{place.name}}
-                                    </option>
-                                </select>
+                                <input
+                                type="text"
+                                formControlName="city"
+                                [ngbTypeahead]="searchForBilling"
+                                [editable]="false"
+                                placeholder="Wpisz nazwę miejscowości..."
+                                class="form-control"
+                                />
                                 <div *ngIf="billingCity?.invalid && (billingCity?.dirty || billingCity?.touched) && billingProvince?.value != ''" class="alert alert-danger mt-1">
 
                                     <div *ngIf="billingCity?.errors?.['required']">
