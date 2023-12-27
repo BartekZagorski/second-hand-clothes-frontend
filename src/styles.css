@@ -24,6 +24,7 @@ img {
 #offcanvasCategories {
     top: 4.3rem !important;
     left: 0 !important;
+    overflow-y: auto;
 }
 
 header>nav{
