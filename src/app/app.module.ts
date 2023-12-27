@@ -76,7 +76,7 @@ const routes: Routes = [
     KeycloakAngularModule,
     OAuthModule.forRoot({
       resourceServer: {
-          allowedUrls: ['http://localhost:8080/api/'],
+          allowedUrls: ['http://localhost:8080/api/', 'https://secondhand.bartlomiejzagorski.pl/api/'],
           sendAccessToken: true
       }
   }),

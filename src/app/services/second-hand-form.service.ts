@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Place } from '../common/place';
 import { Province } from '../common/province';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecondHandFormService {
 
-  private provincesUrl = 'http://localhost:8080/api/provinces';
-  private placesUrl = 'http://localhost:8080/api/places';
+  private provincesUrl = environment.secondHandApiUrl + '/provinces';
+  private placesUrl =  environment.secondHandApiUrl + '/places';
 
   constructor(private httpClient: HttpClient) { }
 

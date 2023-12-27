@@ -7,6 +7,7 @@ import { ProductCategory } from '../common/product-category';
 import { SuperCategory } from '../common/super-category';
 import { ActivatedRoute } from '@angular/router';
 import { ProductDTO } from '../common/product-dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,23 +21,21 @@ export class ProductService {
   searchMode: Subject<boolean> = new BehaviorSubject<boolean>(false);
   searchKeyword: Subject<string> = new BehaviorSubject<string>("");
   
-  private baseUrl = 'http://localhost:8080/api/';
-  
   constructor(private httpClient: HttpClient) { 
     this.updatePageSize(3);
   }
 
   getProduct(productId: number): Observable<Product> {
-    const productUrl = this.baseUrl + 'products/' + productId;
+    const productUrl = environment.secondHandApiUrl + '/products/' + productId;
     
     return this.httpClient.get<Product>(productUrl);
   }
 
   getProductList(categoryId: number, isSuperCategory: boolean = false): Observable<Product[]> {
 
-    let searchUrl = this.baseUrl + 'products/search/findByCategoryId?id=' + categoryId;
+    let searchUrl = environment.secondHandApiUrl + '/products/search/findByCategoryId?id=' + categoryId;
     
-    if (isSuperCategory) searchUrl = this.baseUrl + 'products/search/findByCategorySuperCategoryId?id=' + categoryId;
+    if (isSuperCategory) searchUrl = environment.secondHandApiUrl + '/products/search/findByCategorySuperCategoryId?id=' + categoryId;
     
     return this.httpClient.get<ProductGetResponse>(searchUrl).pipe(
       map(response => response._embedded.products)
@@ -46,15 +45,15 @@ export class ProductService {
       getProductListPaginate(thePage: number, thePageSize: number, theCategoryId: number, isSuperCategory: boolean = false): Observable<ProductGetResponse> {
         
         //need to build URL based on category id,page and size
-        let searchURL = `${this.baseUrl}products/search/findByCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
+        let searchURL = `${environment.secondHandApiUrl}/products/search/findByCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
         
-        if (isSuperCategory) searchURL = `${this.baseUrl}products/search/findByCategorySuperCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
+        if (isSuperCategory) searchURL = `${environment.secondHandApiUrl}/products/search/findByCategorySuperCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
         
         return this.httpClient.get<ProductGetResponse>(searchURL);
       }
       
       getProductCategories(): Observable<ProductCategory[]> {
-        const searchUrl = this.baseUrl + 'product-categories';
+        const searchUrl = environment.secondHandApiUrl + '/product-categories';
         
         return this.httpClient.get<ProductCategoryGetResponse>(searchUrl).pipe(
           map(response => response._embedded.productCategories)
@@ -62,7 +61,7 @@ export class ProductService {
         }
 
       getProductCategoriesBySuperCategoryName(superCategoryName: string): Observable<ProductCategory[]> {
-        const searchUrl = this.baseUrl + 'product-categories/search/findBySuperCategoryName?name=' + superCategoryName;
+        const searchUrl = environment.secondHandApiUrl + '/product-categories/search/findBySuperCategoryName?name=' + superCategoryName;
 
         return this.httpClient.get<ProductCategoryGetResponse>(searchUrl).pipe(
           map(response => response._embedded.productCategories)
@@ -70,7 +69,7 @@ export class ProductService {
       }
         
       getSuperCategories(): Observable<SuperCategory[]> {
-        const searchUrl = this.baseUrl + 'super-categories';
+        const searchUrl = environment.secondHandApiUrl + '/super-categories';
 
         return this.httpClient.get<SuperCategoryGetResponse>(searchUrl).pipe(
           map(response => response._embedded.superCategories)
@@ -78,7 +77,7 @@ export class ProductService {
       }
 
   searchProducts(theKeyword: string): Observable<Product[]> {
-    const searchUrl = this.baseUrl + 'products/search/findByNameContaining?name=' + theKeyword;
+    const searchUrl = environment.secondHandApiUrl + '/products/search/findByNameContaining?name=' + theKeyword;
 
     return this.httpClient.get<ProductGetResponse>(searchUrl).pipe(
       map(response => response._embedded.products)
@@ -87,13 +86,13 @@ export class ProductService {
     
     searchProductsPaginate(thePage: number, thePageSize: number, theKeyword: string): Observable<ProductGetResponse>{
       //need to build URL based on keyword, page and size
-      const searchURL = `${this.baseUrl}products/search/findByNameContaining?name=${theKeyword}&page=${thePage}&size=${thePageSize}`;
+      const searchURL = `${environment.secondHandApiUrl}/products/search/findByNameContaining?name=${theKeyword}&page=${thePage}&size=${thePageSize}`;
 
     return this.httpClient.get<ProductGetResponse>(searchURL);
   }
 
   pushProduct(product: ProductDTO, files: File[]): Observable<any> {
-    const postUrl = this.baseUrl + "products";
+    const postUrl = environment.secondHandApiUrl + "/products";
 
     const formData = new FormData();
 
@@ -114,7 +113,7 @@ export class ProductService {
   }
 
   deleteProduct(id: number): Observable<any> {
-    const deleteUrl = this.baseUrl+"products?id="+id;
+    const deleteUrl = environment.secondHandApiUrl+"/products?id="+id;
 
     return this.httpClient.delete(deleteUrl)
   }

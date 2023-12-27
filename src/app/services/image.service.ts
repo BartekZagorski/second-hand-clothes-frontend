@@ -2,26 +2,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Image } from '../common/image';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
 
-  private baseUrl = 'http://localhost:8080/api/';
-
   constructor(private httpClient: HttpClient) { }
 
   getProductImageUrlList(productId: number): Observable<Image[]> {
       
-    const searchUrl = this.baseUrl + 'images?productId=' + productId;
+    const searchUrl = environment.secondHandApiUrl + '/images?productId=' + productId;
     
     return this.httpClient.get<Image[]>(searchUrl);
     }
 
   
   pushFile(files: File[], productId: string): Observable<any> {
-    const postUrl = this.baseUrl + "images";
+    const postUrl = environment.secondHandApiUrl + "/images";
 
     const formData = new FormData();
 
@@ -40,7 +39,7 @@ export class ImageService {
   }
 
   removeImage(id: number) : Observable<any> {
-    const deleteUrl = this.baseUrl+"images/"+id;
+    const deleteUrl = environment.secondHandApiUrl+"/images/"+id;
 
     return this.httpClient.delete(deleteUrl);
   }
